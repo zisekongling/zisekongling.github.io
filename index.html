@@ -12,7 +12,7 @@
             --accent: #ff6b6b;
             --text: #333;
             --bg: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-bg: rgba(255, 255, 255, 0.50);
             --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             --gaokao-color: #ff6b6b;
             --progress-normal: #2ecc71;
@@ -24,7 +24,7 @@
             --accent: #ff8e8e;
             --text: #f0f0f0;
             --bg: #1a1a2e;
-            --card-bg: rgba(30, 30, 46, 0.92);
+            --card-bg: rgba(30, 30, 46, 0.50);
             --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             --gaokao-color: #ff8e8e;
         }
@@ -34,7 +34,7 @@
             --accent: #9b59b6;
             --text: #2c3e50;
             --bg: #ecf0f1;
-            --card-bg: rgba(236, 240, 241, 0.92);
+            --card-bg: rgba(236, 240, 241, 0.50);
             --gaokao-color: #e74c3c;
         }
         .forest-theme {
@@ -43,7 +43,7 @@
             --accent: #c0392b;
             --text: #34495e;
             --bg: #ecf0f1;
-            --card-bg: rgba(236, 240, 241, 0.92);
+            --card-bg: rgba(236, 240, 241, 0.50);
             --gaokao-color: #16a085;
         }
         .sunset-theme {
@@ -52,7 +52,7 @@
             --accent: #9b59b6;
             --text: #2c3e50;
             --bg: #f5d76e;
-            --card-bg: rgba(245, 215, 110, 0.92);
+            --card-bg: rgba(245, 215, 110, 0.50);
             --gaokao-color: #c0392b;
         }
         .midnight-theme {
@@ -61,7 +61,7 @@
             --accent: #1abc9c;
             --text: #ecf0f1;
             --bg: #2c3e50;
-            --card-bg: rgba(44, 62, 80, 0.92);
+            --card-bg: rgba(44, 62, 80, 0.50);
             --shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             --gaokao-color: #9b59b6;
         }
@@ -71,7 +71,7 @@
             --accent: #6c5ce7;
             --text: #2d3436;
             --bg: #ffcccc;
-            --card-bg: rgba(255, 204, 204, 0.92);
+            --card-bg: rgba(255, 204, 204, 0.50);
             --gaokao-color: #e84393;
         }
         * {
@@ -90,26 +90,38 @@
             color: var(--text);
             overflow: hidden;
             position: relative;
-            padding: 15px;
+            padding: 10px;
             background-size: cover;
             background-position: center;
         }
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
+        
+        /* 顶部卡片优化 */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 12px 20px;
             background: var(--card-bg);
             border-radius: 20px;
             box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            flex-wrap: wrap;
+            min-height: 80px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 60%;
         }
         .logo {
             display: flex;
@@ -125,29 +137,23 @@
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 12px;
             flex-wrap: wrap;
+            white-space: nowrap;
         }
         .logo i {
             font-size: 1.8rem;
             color: var(--accent);
         }
-        .gaokao-countdown {
-            font-size: 1.1rem;
-            background: rgba(255, 107, 107, 0.1);
-            padding: 6px 12px;
-            border-radius: 20px;
-            color: var(--gaokao-color);
-            font-weight: 600;
+        .countdowns-container {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            text-align: center;
-            line-height: 1.3;
-            animation: pulse 2s infinite;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 100%;
+            flex: 1;
+            min-width: 0;
         }
-        .next-exam {
-            font-size: 1rem;
+        .countdown-item {
+            font-size: 1.1rem;
             background: rgba(106, 17, 203, 0.1);
             padding: 6px 12px;
             border-radius: 20px;
@@ -158,6 +164,17 @@
             gap: 6px;
             text-align: center;
             line-height: 1.3;
+            min-width: 140px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .gaokao-countdown {
+            animation: pulse 2s infinite;
+        }
+        .next-exam {
+            font-size: 1rem;
         }
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -167,6 +184,10 @@
         .controls {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            flex: 1;
+            min-width: fit-content;
         }
         .btn {
             padding: 8px 16px;
@@ -215,7 +236,17 @@
         .btn:hover .tooltip {
             opacity: 1;
         }
+        
+        /* 主内容区域布局优化 - 减小卡片高度 */
+        .content-wrapper {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
         .main-content {
+            flex: 1;
+            min-width: 300px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -224,10 +255,18 @@
         .settings-open .main-content {
             transform: translateY(-100%);
         }
+        .countdown-sidebar {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* 减小卡片高度 */
         .time-section {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
@@ -236,16 +275,37 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            height: 200px; /* 减小高度 */
+            min-height: 200px;
+            max-height: 200px;
+            width: 100%;
         }
+        .quote-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            height: 30px; /* 减小高度 */
+            min-height: 240px;
+            max-height: 240px;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+        
         .date-display {
-            font-size: 1.4rem;
+            font-size: 1.3rem; /* 减小字体 */
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* 减小间距 */
             color: var(--text);
             text-align: center;
         }
         .time-display {
-            font-size: 4.5rem;
+            font-size: 3.8rem; /* 减小字体 */
             font-weight: 800;
             color: var(--text);
             text-align: center;
@@ -258,23 +318,61 @@
             transition: font-size 0.3s ease;
         }
         .milliseconds {
-            font-size: 2.2rem;
+            font-size: 1.8rem; /* 减小字体 */
             color: var(--accent);
             align-self: flex-end;
             margin-bottom: 5px;
         }
-        .quote-section {
+        
+        .countdown-panel {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 30px;
+            padding: 15px; /* 减小内边距 */
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            gap: 12px; /* 减小间距 */
+            backdrop-filter: blur(5px);
+            height: 100%;
             position: relative;
-            min-height: 200px;
-            transition: all 0.3s ease;
         }
+        .countdown-panel-title {
+            font-size: 1.2rem; /* 减小字体 */
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px; /* 减小间距 */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .countdown-panel-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px; /* 减小内边距 */
+            background: rgba(106, 17, 203, 0.05);
+            border-radius: 12px;
+            margin-bottom: 6px; /* 减小间距 */
+            font-size: 0.95rem; /* 减小字体 */
+        }
+        .countdown-panel-item-title {
+            font-weight: 600;
+            color: var(--text);
+            flex: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .countdown-panel-item-time {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1rem; /* 减小字体 */
+            flex: 1;
+            text-align: right;
+            min-width: fit-content;
+        }
+        
+        /* 布局优先级设置 */
         .quote-priority .time-section {
             flex: 1;
         }
@@ -282,10 +380,10 @@
             flex: 2;
         }
         .quote-priority .time-display {
-            font-size: 3.8rem;
+            font-size: 3.3rem; /* 减小字体 */
         }
         .quote-priority .quote-content {
-            font-size: 2rem;
+            font-size: 1.8rem; /* 减小字体 */
         }
         .time-priority .time-section {
             flex: 2;
@@ -294,10 +392,10 @@
             flex: 1;
         }
         .time-priority .time-display {
-            font-size: 5.5rem;
+            font-size: 4.8rem; /* 减小字体 */
         }
         .time-priority .quote-content {
-            font-size: 1.6rem;
+            font-size: 1.4rem; /* 减小字体 */
         }
         .quote-hidden .quote-section {
             display: none;
@@ -307,73 +405,108 @@
             justify-content: center;
         }
         .quote-hidden .time-display {
-            font-size: 6.5rem !important;
+            font-size: 5.5rem !important;
         }
+        
+        /* 固定卡片大小 */
+        .fixed-cards .time-section,
+        .fixed-cards .quote-section {
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+            overflow: hidden;
+        }
+        .fixed-cards .time-section {
+            justify-content: center;
+        }
+        .fixed-cards .quote-content {
+            overflow: auto;
+        }
+        
+        /* 金句部分优化 */
         .quote-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px; /* 减小间距 */
         }
         .quote-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem; /* 减小字体 */
             color: var(--text);
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .quote-content {
-            font-size: 1.8rem;
+            font-size: 1.6rem; /* 减小字体 */
             line-height: 1.4;
             text-align: center;
             color: var(--text);
             font-style: italic;
-            margin: 15px 0;
             padding: 0 15px;
             position: relative;
-            min-height: 120px;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+        .quote-text {
+            max-height: 100%;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 5px 0;
+            width: 100%;
+            text-align: center;
         }
         .quote-content::before,
         .quote-content::after {
             content: '"';
-            font-size: 3rem;
+            font-size: 2.5rem; /* 减小字体 */
             color: rgba(106, 17, 203, 0.2);
             position: absolute;
+            z-index: 1;
         }
         .quote-content::before {
-            top: -20px;
-            left: -10px;
+            top: 5px;
+            left: 5px;
         }
         .quote-content::after {
-            bottom: -35px;
-            right: -10px;
+            bottom: 5px;
+            right: 5px;
         }
         .quote-author {
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* 减小字体 */
             text-align: right;
             color: var(--text);
             opacity: 0.8;
-            margin-top: 20px;
+            margin-top: 8px; /* 减小间距 */
             padding-right: 15px;
             font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .quote-type {
+            font-size: 0.9rem; /* 减小字体 */
+            position: absolute;
+            bottom: 12px; /* 调整位置 */
+            left: 15px;
             background: rgba(106, 17, 203, 0.1);
             color: var(--primary);
             padding: 4px 12px;
             border-radius: 16px;
-            font-size: 0.95rem;
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80%;
         }
         .cursor {
             display: inline-block;
             width: 2px;
-            height: 2rem;
+            height: 1.8rem; /* 减小高度 */
             background: var(--accent);
             margin-left: 3px;
             vertical-align: middle;
@@ -737,49 +870,6 @@
             transform: scaleX(0);
             transition: transform 0.3s linear;
         }
-        .performance-indicator {
-            position: fixed;
-            bottom: 25px;
-            right: 100px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 99;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-        .performance-indicator.normal {
-            background: #2ecc71;
-            color: white;
-        }
-        .performance-indicator.powersave {
-            background: #f39c12;
-            color: white;
-        }
-        .performance-indicator.hidden {
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(20px);
-        }
-        .performance-indicator:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            margin-bottom: 8px;
-        }
         
         /* 防休眠模式状态指示器 */
         .no-sleep-indicator {
@@ -807,357 +897,6 @@
             background-color: #e74c3c;
         }
         
-        /* 2K屏幕优化 */
-        @media (min-width: 1920px) {
-            .container {
-                max-width: 1400px;
-            }
-            .time-display {
-                font-size: 5rem;
-            }
-            .quote-content {
-                font-size: 2.2rem;
-            }
-            .time-section {
-                padding: 40px;
-            }
-            .quote-section {
-                padding: 40px;
-            }
-            .time-priority .time-display {
-                font-size: 6.5rem;
-            }
-            .quote-priority .quote-content {
-                font-size: 2.4rem;
-            }
-        }
-        /* 超宽屏适配 */
-        @media (min-width: 2500px) {
-            .container {
-                max-width: 1800px;
-            }
-            .time-display {
-                font-size: 6rem;
-            }
-            .quote-content {
-                font-size: 2.5rem;
-            }
-            .time-section {
-                padding: 50px;
-            }
-            .quote-section {
-                padding: 50px;
-                min-height: 250px;
-            }
-            .quote-header h2 {
-                font-size: 1.8rem;
-            }
-            .quote-author {
-                font-size: 1.6rem;
-            }
-            .logo h1 {
-                font-size: 2rem;
-            }
-            .gaokao-countdown {
-                font-size: 1.3rem;
-            }
-            .btn {
-                font-size: 1.2rem;
-                padding: 10px 20px;
-            }
-        }
-        @media (max-width: 900px) and (orientation: portrait) {
-            .container {
-                max-width: 95%;
-            }
-            .time-display {
-                font-size: 3.8rem;
-            }
-            .quote-content {
-                font-size: 1.6rem;
-            }
-            .time-section {
-                padding: 20px;
-            }
-            .quote-section {
-                padding: 20px;
-            }
-        }
-        @media (max-width: 900px) and (orientation: landscape) {
-            .container {
-                max-width: 95%;
-            }
-            .time-display {
-                font-size: 3.5rem;
-            }
-            .quote-content {
-                font-size: 1.4rem;
-            }
-            .time-section {
-                padding: 15px;
-            }
-            .quote-section {
-                padding: 15px;
-            }
-            .settings-grid {
-                max-height: 60vh;
-            }
-        }
-        @media (max-width: 768px) {
-            .logo h1 {
-                font-size: 1.4rem;
-                gap: 8px;
-            }
-            .gaokao-countdown {
-                font-size: 0.95rem;
-                padding: 4px 8px;
-            }
-            .btn {
-                padding: 7px 14px;
-                font-size: 0.9rem;
-            }
-            .time-display {
-                font-size: 3.5rem;
-            }
-            .milliseconds {
-                font-size: 1.8rem;
-            }
-            .quote-hidden .time-display {
-                font-size: 5.5rem !important;
-            }
-            .quote-content {
-                font-size: 1.5rem;
-                min-height: 100px;
-            }
-            .quote-author {
-                font-size: 1.1rem;
-            }
-            .preset-btn {
-                min-width: 90px;
-                font-size: 0.85rem;
-            }
-            .quote-progress-container {
-                width: 90px;
-            }
-        }
-        @media (max-width: 600px) {
-            .time-display {
-                font-size: 3rem;
-            }
-            .quote-hidden .time-display {
-                font-size: 4.5rem !important;
-            }
-            .quote-content {
-                font-size: 1.4rem;
-            }
-            .interval-controls {
-                flex-direction: column;
-            }
-            .interval-control {
-                min-width: 100%;
-            }
-            .quote-progress-container {
-                width: 70px;
-            }
-        }
-        @media (max-width: 480px) {
-            header {
-                flex-direction: column;
-                gap: 12px;
-                padding: 12px;
-            }
-            .controls {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .logo {
-                justify-content: center;
-                width: 100%;
-            }
-            .logo h1 {
-                justify-content: center;
-                text-align: center;
-            }
-            .time-display {
-                font-size: 2.8rem;
-            }
-            .milliseconds {
-                font-size: 1.4rem;
-            }
-            .quote-hidden .time-display {
-                font-size: 4rem !important;
-            }
-            .date-display {
-                font-size: 1.2rem;
-            }
-            .quote-content {
-                font-size: 1.3rem;
-            }
-            .quote-author {
-                font-size: 1rem;
-            }
-            .bg-input-group {
-                flex-direction: column;
-            }
-            .preset-buttons {
-                flex-direction: column;
-            }
-            .preset-btn {
-                width: 100%;
-            }
-            .quote-progress-container {
-                width: 60px;
-            }
-            .btn .tooltip {
-                display: none;
-            }
-            .settings-grid {
-                max-height: 60vh;
-            }
-            .action-buttons {
-                flex-direction: column;
-            }
-            .performance-indicator {
-                bottom: 95px;
-                right: 25px;
-            }
-            .no-sleep-indicator {
-                bottom: 95px;
-                left: 15px;
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-        }
-        @media (max-width: 360px) {
-            .time-display {
-                font-size: 2.5rem;
-            }
-            .quote-hidden .time-display {
-                font-size: 3.5rem !important;
-            }
-            .date-display {
-                font-size: 1.1rem;
-            }
-            .quote-content {
-                font-size: 1.2rem;
-            }
-        }
-        @media (max-width: 360px) and (orientation: portrait) {
-            .time-display {
-                font-size: 2.2rem;
-            }
-            .quote-hidden .time-display {
-                font-size: 3rem !important;
-            }
-            .date-display {
-                font-size: 0.95rem;
-            }
-            .quote-content {
-                font-size: 1.1rem;
-                min-height: 90px;
-            }
-            .quote-section {
-                padding: 15px;
-            }
-            .logo h1 {
-                font-size: 1.2rem;
-            }
-            .time-section {
-                padding: 15px;
-            }
-        }
-        @media (max-height: 480px) and (orientation: landscape) {
-            .container {
-                max-width: 95%;
-                gap: 10px;
-            }
-            .time-section {
-                padding: 15px;
-            }
-            .quote-section {
-                padding: 15px;
-                min-height: 150px;
-            }
-            .time-display {
-                font-size: 2.8rem;
-            }
-            .quote-content {
-                font-size: 1.2rem;
-                min-height: 80px;
-            }
-            .quote-author {
-                font-size: 0.9rem;
-                margin-top: 10px;
-            }
-            .settings-grid {
-                max-height: 50vh;
-            }
-            header {
-                padding: 8px 12px !important;
-            }
-            .logo h1 {
-                font-size: 1.2rem !important;
-            }
-            .gaokao-countdown {
-                font-size: 0.85rem !important;
-            }
-            .btn {
-                padding: 5px 10px !important;
-                font-size: 0.85rem !important;
-            }
-        }
-        @media (max-height: 400px) and (orientation: landscape) {
-            .time-display {
-                font-size: 2.5rem !important;
-            }
-            .quote-content {
-                font-size: 1.1rem !important;
-                min-height: 70px;
-            }
-            .quote-author, .quote-type {
-                font-size: 0.8rem !important;
-            }
-            .time-section {
-                padding: 10px !important;
-            }
-            .quote-section {
-                padding: 10px !important;
-            }
-            .date-display {
-                font-size: 1rem !important;
-            }
-        }
-        @media (max-height: 600px) {
-            .quote-section {
-                padding: 15px !important;
-            }
-            .quote-content {
-                font-size: 1.4rem !important;
-                min-height: 80px;
-            }
-            .quote-author, .quote-type {
-                font-size: 1rem !important;
-            }
-        }
-        @media (max-height: 500px) {
-            .quote-content {
-                font-size: 1.3rem !important;
-                min-height: 70px;
-            }
-            .quote-author, .quote-type {
-                font-size: 0.9rem !important;
-            }
-        }
-        @media (max-height: 400px) {
-            .quote-content {
-                font-size: 1.1rem !important;
-                min-height: 60px;
-            }
-            .quote-author, .quote-type {
-                font-size: 0.8rem !important;
-            }
-        }
         /* 科目设置样式 */
         .subject-group {
             display: grid;
@@ -1185,26 +924,493 @@
             align-items: center;
             gap: 8px;
         }
+        
+        /* 倒数日设置样式 */
+        .countdowns-form {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: var(--primary);
+        }
+        .form-control {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+        }
+        .dark-theme .form-control {
+            background: rgba(30, 30, 50, 0.5);
+            color: var(--text);
+            border-color: #444;
+        }
+        .countdowns-list {
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .countdowns-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .countdowns-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        .countdown-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .countdown-item-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+        }
+        .countdown-item-title {
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .countdown-item-date {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .countdown-item-actions {
+            display: flex;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+        .countdown-edit-btn, .countdown-delete-btn, .countdown-toggle-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        .countdown-edit-btn {
+            color: var(--primary);
+        }
+        .countdown-delete-btn {
+            color: var(--accent);
+        }
+        .countdown-toggle-btn {
+            color: #27ae60;
+        }
+        .countdown-toggle-btn.hidden {
+            color: #e74c3c;
+        }
+        .countdown-edit-btn:hover, .countdown-delete-btn:hover, .countdown-toggle-btn:hover {
+            transform: scale(1.1);
+            background: rgba(0,0,0,0.05);
+        }
+        
+        /* 金句动画样式 */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* 居中内容 */
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+/* 优化后的倒数日图片容器 */
+.holiday-image-container {
+  width: 207px;  /* 宽度增大33% */
+  height: 186.3px; /* 高度按原比例放大(90:81=120:108) */
+  margin: 15px auto 12px; /* 底部间距增大 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15));
+  border-radius: 12px; /* 圆角增大 */
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+        .holiday-image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .countdown-items-container {
+            flex: 1;
+            overflow-y: auto;
+            max-height: calc(100% - 110px);
+            padding-right: 5px;
+        }
+        .countdown-items-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .countdown-items-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        .hide-holiday-image .holiday-image-container {
+            display: none;
+        }
+        
+        /* 响应式设计 - 优化布局 */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            .countdown-sidebar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .countdown-panel {
+                flex: 1;
+                min-width: 300px;
+            }
+            .time-display {
+                font-size: 3.5rem;
+            }
+            .quote-content {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                max-width: 95%;
+            }
+            .time-display {
+                font-size: 3.3rem;
+            }
+            .quote-content {
+                font-size: 1.4rem;
+            }
+            .time-section {
+                padding: 15px;
+            }
+            .quote-section {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .logo-container {
+                width: 100%;
+                max-width: 100%;
+                justify-content: center;
+            }
+            .logo h1 {
+                font-size: 1.4rem;
+                justify-content: center;
+                text-align: center;
+            }
+            .controls {
+                width: 100%;
+                justify-content: center;
+            }
+            .countdown-item {
+                font-size: 0.95rem;
+                padding: 4px 8px;
+                min-width: 140px;
+            }
+            .btn {
+                padding: 7px 14px;
+                font-size: 0.9rem;
+            }
+            .time-display {
+                font-size: 3rem;
+            }
+            .milliseconds {
+                font-size: 1.5rem;
+            }
+            .quote-hidden .time-display {
+                font-size: 4.5rem !important;
+            }
+            .quote-content {
+                font-size: 1.3rem;
+            }
+            .quote-author {
+                font-size: 1rem;
+            }
+            .preset-btn {
+                min-width: 90px;
+                font-size: 0.85rem;
+            }
+            .quote-progress-container {
+                width: 90px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .time-display {
+                font-size: 2.8rem;
+            }
+            .quote-hidden .time-display {
+                font-size: 4rem !important;
+            }
+            .quote-content {
+                font-size: 1.2rem;
+            }
+            .interval-controls {
+                flex-direction: column;
+            }
+            .interval-control {
+                min-width: 100%;
+            }
+            .quote-progress-container {
+                width: 70px;
+            }
+            .countdown-item {
+                min-width: 130px;
+            }
+            .countdown-panel {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo h1 {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+            .countdowns-container {
+                justify-content: center;
+                margin-top: 8px;
+            }
+            .next-exam-container {
+                margin-left: 0;
+                margin-top: 8px;
+                width: 100%;
+            }
+            .time-display {
+                font-size: 2.5rem;
+            }
+            .milliseconds {
+                font-size: 1.2rem;
+            }
+            .quote-hidden .time-display {
+                font-size: 3.5rem !important;
+            }
+            .date-display {
+                font-size: 1.1rem;
+            }
+            .quote-content {
+                font-size: 1.1rem;
+            }
+            .quote-author {
+                font-size: 0.9rem;
+            }
+            .bg-input-group {
+                flex-direction: column;
+            }
+            .preset-buttons {
+                flex-direction: column;
+            }
+            .preset-btn {
+                width: 100%;
+            }
+            .quote-progress-container {
+                width: 60px;
+            }
+            .btn .tooltip {
+                display: none;
+            }
+            .settings-grid {
+                max-height: 60vh;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .countdown-item {
+                min-width: 120px;
+            }
+            .holiday-image-container {
+                margin: 10px auto 5px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .time-display {
+                font-size: 2.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+            .quote-hidden .time-display {
+                font-size: 3rem !important;
+            }
+            .date-display {
+                font-size: 0.95rem;
+            }
+            .quote-content {
+                font-size: 1rem;
+            }
+            .countdown-item {
+                min-width: 110px;
+            }
+        }
+        
+        @media (max-width: 360px) and (orientation: portrait) {
+            .time-display {
+                font-size: 2rem;
+            }
+            .quote-hidden .time-display {
+                font-size: 2.8rem !important;
+            }
+            .date-display {
+                font-size: 0.9rem;
+            }
+            .quote-content {
+                font-size: 0.95rem;
+            }
+            .quote-section {
+                padding: 12px;
+            }
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            .time-section {
+                padding: 12px;
+            }
+            .countdown-item {
+                min-width: 100px;
+            }
+        }
+        
+        @media (max-height: 480px) and (orientation: landscape) {
+            .container {
+                max-width: 95%;
+                gap: 10px;
+            }
+            .time-section {
+                padding: 12px;
+            }
+            .quote-section {
+                padding: 12px;
+                height: 150px;
+            }
+            .time-display {
+                font-size: 2.5rem;
+            }
+            .quote-content {
+                font-size: 1rem;
+            }
+            .quote-author {
+                font-size: 0.8rem;
+                margin-top: 10px;
+            }
+            .settings-grid {
+                max-height: 50vh;
+            }
+            header {
+                padding: 8px 12px !important;
+            }
+            .logo h1 {
+                font-size: 1.1rem !important;
+            }
+            .countdown-item {
+                font-size: 0.8rem !important;
+            }
+            .btn {
+                padding: 5px 10px !important;
+                font-size: 0.8rem !important;
+            }
+            .holiday-image-container {
+                width: 70px;
+                height: 63px;
+            }
+        }
+        
+        @media (max-height: 400px) and (orientation: landscape) {
+            .time-display {
+                font-size: 2.2rem !important;
+            }
+            .quote-content {
+                font-size: 0.9rem !important;
+            }
+            .quote-author, .quote-type {
+                font-size: 0.7rem !important;
+            }
+            .time-section {
+                padding: 8px !important;
+            }
+            .quote-section {
+                padding: 8px !important;
+            }
+            .date-display {
+                font-size: 0.9rem !important;
+            }
+            .countdown-item {
+                min-width: 90px !important;
+            }
+            .holiday-image-container {
+                width: 60px;
+                height: 54px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <i class="fas fa-clock"></i>
-                <h1>
-                    青春时光
-                    <span class="gaokao-countdown" id="gaokaoCountdown">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-clock"></i>
+                    <h1>青春时光</h1>
+                </div>
+                <div class="countdowns-container" id="topCountdowns">
+                    <span class="countdown-item gaokao-countdown" id="gaokaoCountdown">
                         <i class="fas fa-graduation-cap"></i>
                         <span id="gaokaoText">高考倒计时计算中...</span>
                     </span>
                     <span class="next-exam-container" id="nextExamContainer">
-                        <span class="next-exam" id="nextExam">
+                        <span class="countdown-item next-exam" id="nextExam">
                             <i class="fas fa-book-open"></i>
                             <span id="nextExamText">下一科：语文</span>
                         </span>
                     </span>
-                </h1>
+                </div>
             </div>
             <div class="controls">
                 <button type="button" class="btn btn-outline" id="themeBtn" aria-label="切换主题">
@@ -1222,36 +1428,50 @@
             </div>
         </header>
         
-        <div class="main-content">
-            <div class="time-section">
-                <div class="date-display" id="dateDisplay">2023年10月15日 星期日</div>
-                <div class="time-display">
-                    <span id="hours">14</span>
-                    <span class="colon" id="colonAfterHour">:</span>
-                    <span id="minutes">30</span>
-                    <span class="colon" id="colonAfterMinute">:</span>
-                    <span id="seconds">45</span>
-                    <span class="milliseconds">.<span id="milliseconds">789</span></span>
+        <div class="content-wrapper">
+            <div class="main-content">
+                <div class="time-section">
+                    <div class="date-display" id="dateDisplay">2023年10月15日 星期日</div>
+                    <div class="time-display">
+                        <span id="hours">14</span>
+                        <span class="colon" id="colonAfterHour">:</span>
+                        <span id="minutes">30</span>
+                        <span class="colon" id="colonAfterMinute">:</span>
+                        <span id="seconds">45</span>
+                        <span class="milliseconds">.<span id="milliseconds">789</span></span>
+                    </div>
+                </div>
+                
+                <div class="quote-section">
+                    <div class="quote-header">
+                        <h2><i class="fas fa-quote-left"></i> 每日金句</h2>
+                        <div class="api-status" id="apiStatusContainer">
+                            <div class="status-indicator" id="apiStatus"></div>
+                            <span id="apiStatusText">API正常</span>
+                            <div class="quote-progress-container">
+                                <div class="quote-progress-bar" id="quoteProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quote-content" id="quoteContent">
+                        <div class="quote-text">生活就像骑自行车，为了保持平衡，你必须不断前进。<span class="cursor"></span></div>
+                    </div>
+                    <div class="quote-author" id="quoteAuthor">—— 爱因斯坦 · 物理学家</div>
+                    <div class="quote-type" id="quoteType">哲学</div>
                 </div>
             </div>
             
-            <div class="quote-section">
-                <div class="quote-header">
-                    <h2><i class="fas fa-quote-left"></i> 每日金句</h2>
-                    <div class="api-status" id="apiStatusContainer">
-                        <div class="status-indicator" id="apiStatus"></div>
-                        <span id="apiStatusText">API正常</span>
-                        <div class="quote-progress-container">
-                            <div class="quote-progress-bar" id="quoteProgressBar"></div>
-                        </div>
+            <div class="countdown-sidebar">
+                <div class="countdown-panel" id="countdownPanel">
+                    <div class="countdown-panel-title">
+                        <i class="fas fa-calendar-days"></i> 倒数日
+                    </div>
+                    <div class="countdown-items-container" id="countdownPanelItems"></div>
+                    <div class="holiday-image-container">
+                        <img src="https://www.kanostar.top/holidays/img" alt="放假倒计时">
                     </div>
                 </div>
-                <div class="quote-content" id="quoteContent">
-                    生活就像骑自行车，为了保持平衡，你必须不断前进。<span class="cursor"></span>
-                </div>
-                <div class="quote-author" id="quoteAuthor">—— 爱因斯坦 · 物理学家</div>
-                <div class="quote-type" id="quoteType">哲学</div>
-            </div>
+             </div>
         </div>
         
         <div class="settings-panel" id="settingsPanel">
@@ -1280,6 +1500,9 @@
                         <label class="checkbox-item">
                             <input type="checkbox" id="showMilliseconds"> 显示毫秒
                         </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="showGaokao" checked> 显示高考倒计时
+                        </label>
                     </div>
                 </div>
                 
@@ -1293,6 +1516,28 @@
                             <input type="radio" name="displayPriority" id="timePriority" value="time"> 时间优先
                         </label>
                     </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3><i class="fas fa-calendar-days"></i> 倒数日设置</h3>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="showHolidayImage" checked> 
+                        <label for="showHolidayImage">显示放假倒计时图片</label>
+                    </div>
+                    <div class="countdowns-form">
+                        <div class="form-group">
+                            <label for="countdownTitle">内容 (最多10字)</label>
+                            <input type="text" id="countdownTitle" class="form-control" maxlength="10" placeholder="例如：期末考试">
+                        </div>
+                        <div class="form-group">
+                            <label for="countdownDate">时间</label>
+                            <input type="datetime-local" id="countdownDate" class="form-control">
+                        </div>
+                        <button type="button" class="btn" id="addCountdownBtn">
+                            <i class="fas fa-plus"></i> 添加倒数日
+                        </button>
+                    </div>
+                    <div class="countdowns-list" id="countdownsList"></div>
                 </div>
                 
                 <div class="setting-group">
@@ -1328,7 +1573,7 @@
                             <i class="far fa-square"></i> 全不选
                         </button>
                         <button type="button" class="btn btn-small" id="toggleGuaranteeBtn">
-                            <i class="fas fa-shield-alt"></i> 保底机制
+                            <i class="fas fa-shield-alt"></i> 保底机制: 开
                         </button>
                     </div>
                     <div class="checkbox-group">
@@ -1381,16 +1626,35 @@
                     </div>
                 </div>
                 
+                <!-- 新增：金句动画效果设置 -->
+                <div class="setting-group">
+                    <h3><i class="fas fa-film"></i> 金句动画效果</h3>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="quoteAnimation" id="typewriterAnimation" value="typewriter" checked> 打字机效果
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="quoteAnimation" id="fadeAnimation" value="fade"> 淡入效果
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="quoteAnimation" id="slideAnimation" value="slide"> 上滑效果
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="quoteAnimation" id="noAnimation" value="none"> 无动画
+                        </label>
+                    </div>
+                </div>
+                
                 <div class="setting-group">
                     <h3><i class="fas fa-history"></i> 定时设置</h3>
                     <div class="interval-controls">
                         <div class="interval-control">
                             <label for="quoteInterval">金句更换间隔 (分钟)</label>
-                            <input type="number" id="quoteInterval" min="1" value="1">
+                            <input type="number" id="quoteInterval" min="0.5" step="0.5" value="1">
                         </div>
                         <div class="interval-control">
                             <label for="bgInterval">背景更换间隔 (分钟)</label>
-                            <input type="number" id="bgInterval" min="1" value="30">
+                            <input type="number" id="bgInterval" min="0.5" step="0.5" value="30">
                         </div>
                     </div>
                 </div>
@@ -1441,48 +1705,22 @@
                 </div>
                 
                 <div class="setting-group">
-                    <h3><i class="fas fa-tachometer-alt"></i> 性能设置</h3>
-                    <div class="interval-controls">
-                        <div class="interval-control">
-                            <label for="fpsThreshold">节能模式阈值 (FPS)</label>
-                            <input type="number" id="fpsThreshold" min="15" max="60" value="30">
-                        </div>
-                        <div class="interval-control">
-                            <label for="memoryThreshold">内存警告 (MB)</label>
-                            <input type="number" id="memoryThreshold" min="100" max="1000" value="500">
-                        </div>
-                    </div>
-                    <div class="checkbox-group">
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="powerSavingMode"> 启用节能模式
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="hidePerfIndicator" checked> 隐藏性能指示器
-                        </label>
-                    </div>
-                    <div class="api-status" style="margin-top: 15px;">
-                        <div class="status-indicator" id="perfStatus"></div>
-                        <span id="perfStatusText">当前模式: 正常</span>
-                    </div>
-                </div>
-                
-                <div class="setting-group">
-                    <h3><i class="fas fa-sync-alt"></i> 立即操作</h3>
-                    <div class="action-buttons">
-                        <button type="button" class="action-btn" id="refreshQuoteBtn">
-                            <i class="fas fa-quote-right"></i> 更换金句
-                        </button>
-                        <button type="button" class="action-btn" id="refreshBgBtn">
-                            <i class="fas fa-image"></i> 更换背景
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="setting-group">
                     <h3><i class="fas fa-redo"></i> 重置设置</h3>
                     <button type="button" class="btn reset-btn" id="resetBtn">
                         <i class="fas fa-trash-restore"></i> 恢复默认设置
                     </button>
+                </div>
+                
+                <div class="setting-group">
+                    <h3><i class="fas fa-sync-alt"></i> 刷新操作</h3>
+                    <div class="action-buttons">
+                        <button type="button" class="action-btn" id="refreshQuoteBtn">
+                            <i class="fas fa-quote-right"></i> 立即更换金句
+                        </button>
+                        <button type="button" class="action-btn" id="refreshBgBtn">
+                            <i class="fas fa-image"></i>立即更换背景
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1496,15 +1734,12 @@
         <i class="fas fa-sync-alt"></i>
     </button>
     
-    <div class="performance-indicator" id="perfIndicator" data-tooltip="节能模式已开启">
-        <i class="fas fa-bolt"></i>
-    </div>
-    
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toastMessage">操作成功！</span>
     </div>
-        <!-- 防休眠视频元素 -->
+    
+    <!-- 防休眠视频元素 -->
     <video id="noSleepVideo" playsinline muted loop style="display: none;">
         <source src="data:video/mp4;base64,AAAAHGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAAZhtZGF0AAAAMgYF//+Z3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE0OCByMjkzMSAxNzcxYjM1IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAxNyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTMgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTIga2V5aW50PTI1MCBrZXlpbnRfbWluPTEwIHNjZW5lY3V0PTQwIGludHJhX3JlZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj0yMy4wIHFjb21wPTAuNjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4wMACAAAABdGWIhAAv//72rvzLK0cLlS4dccVkpMgggICAgggICAF0=" type="video/mp4">
     </video>
@@ -1519,6 +1754,7 @@
         const colonAfterMinute = document.getElementById('colonAfterMinute');
         const dateDisplayEl = document.getElementById('dateDisplay');
         const quoteContentEl = document.getElementById('quoteContent');
+        const quoteTextEl = quoteContentEl.querySelector('.quote-text');
         const quoteAuthorEl = document.getElementById('quoteAuthor');
         const quoteTypeEl = document.getElementById('quoteType');
         const apiStatusEl = document.getElementById('apiStatus');
@@ -1533,20 +1769,24 @@
         const toastEl = document.getElementById('toast');
         const toastMessageEl = document.getElementById('toastMessage');
         const refreshBtnEl = document.getElementById('refreshBtn');
-        const perfIndicator = document.getElementById('perfIndicator');
-        const perfStatusEl = document.getElementById('perfStatus');
-        const perfStatusTextEl = document.getElementById('perfStatusText');
         const noSleepVideo = document.getElementById('noSleepVideo');
         const extStatusEl = document.getElementById('extStatus');
         const extStatusTextEl = document.getElementById('extStatusText');
         const downloadExtBtn = document.getElementById('downloadExtBtn');
         const nextExamContainer = document.getElementById('nextExamContainer');
         const nextExamText = document.getElementById('nextExamText');
+        const topCountdownsEl = document.getElementById('topCountdowns');
+        const countdownPanelEl = document.getElementById('countdownPanel');
+        const countdownPanelItemsEl = document.getElementById('countdownPanelItems');
+        const countdownsListEl = document.getElementById('countdownsList');
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const showHolidayImageCheckbox = document.getElementById('showHolidayImage');
         
         // 设置元素
         const showDateCheckbox = document.getElementById('showDate');
         const showSecondsCheckbox = document.getElementById('showSeconds');
         const showMillisecondsCheckbox = document.getElementById('showMilliseconds');
+        const showGaokaoCheckbox = document.getElementById('showGaokao');
         const showQuoteProgressCheckbox = document.getElementById('showQuoteProgress');
         const showBgProgressCheckbox = document.getElementById('showBgProgress');
         const bgUrlInput = document.getElementById('bgUrl');
@@ -1565,14 +1805,20 @@
         const refreshQuoteBtn = document.getElementById('refreshQuoteBtn');
         const refreshBgBtn = document.getElementById('refreshBgBtn');
         const resetBtn = document.getElementById('resetBtn');
-        const powerSavingModeCheckbox = document.getElementById('powerSavingMode');
-        const hidePerfIndicatorCheckbox = document.getElementById('hidePerfIndicator');
-        const fpsThresholdInput = document.getElementById('fpsThreshold');
-        const memoryThresholdInput = document.getElementById('memoryThreshold');
         const quotePriorityRadio = document.getElementById('quotePriority');
         const timePriorityRadio = document.getElementById('timePriority');
         const extensionTypeCheckbox = document.getElementById('extensionType');
         const toggleGuaranteeBtn = document.getElementById('toggleGuaranteeBtn');
+        const countdownTitleInput = document.getElementById('countdownTitle');
+        const countdownDateInput = document.getElementById('countdownDate');
+        const countdownHiddenCheckbox = document.getElementById('countdownHidden');
+        const addCountdownBtn = document.getElementById('addCountdownBtn');
+        
+        // 金句动画效果设置元素
+        const typewriterAnimationRadio = document.getElementById('typewriterAnimation');
+        const fadeAnimationRadio = document.getElementById('fadeAnimation');
+        const slideAnimationRadio = document.getElementById('slideAnimation');
+        const noAnimationRadio = document.getElementById('noAnimation');
         
         // 状态变量
         let currentTheme = 'light';
@@ -1600,17 +1846,8 @@
         let quoteAnimationFrame = null;
         let bgAnimationFrame = null;
         let currentBgUrl = '';
-        let powerSavingMode = false;
         let timeOffset = 0;
         let lastTimeSync = 0;
-        let frameCount = 0;
-        let lastFpsUpdate = 0;
-        let currentFps = 0;
-        let fpsThreshold = 30;
-        let memoryThreshold = 500;
-        let lastMemoryCheck = 0;
-        let highMemoryUsage = false;
-        let powerSavingInterval = null;
         let extensionQuotes = [];
         let displayPriority = 'quote'; // 'quote' 或 'time'
         let wakeLock = null;
@@ -1618,6 +1855,10 @@
         const maxRetries = 10;
         let consecutiveNonExtension = 0; // 连续非拓展金句计数
         let enableQuoteGuarantee = true; // 是否启用保底机制，默认开启
+        let countdowns = []; // 自定义倒数日数组
+        let editingCountdownId = null; // 正在编辑的倒数日ID
+        let quoteAnimationType = 'typewriter'; // 金句动画类型
+        let showHolidayImage = true; // 是否显示放假倒计时图片
 
         // 高考科目时间表
         const examSubjects = [
@@ -1665,8 +1906,324 @@
                 "from": "培根",
                 "from_who": "",
                 "type": "m"
+            },
+            {
+                "hitokoto": "一个男人不会因为年龄的成长而成长，而是经历某些事情后才会成长",
+                "from": "徐天乐",
+                "from_who": "鸿鹄一班",
+                "type": "e"
             }
         ];
+        
+        // 初始化自定义倒数日
+        function initCountdowns() {
+            const savedCountdowns = localStorage.getItem('countdowns');
+            if (savedCountdowns) {
+                try {
+                    countdowns = JSON.parse(savedCountdowns);
+                } catch (e) {
+                    countdowns = [];
+                }
+            }
+            renderCountdownsList();
+            updateCountdownDisplay();
+        }
+        
+        // 渲染倒数日列表
+        function renderCountdownsList() {
+            countdownsListEl.innerHTML = '';
+            
+            countdowns.forEach(countdown => {
+                const countdownItem = document.createElement('div');
+                countdownItem.className = 'countdown-item-row';
+                countdownItem.innerHTML = `
+                    <div class="countdown-item-info">
+                        <div class="countdown-item-title">${countdown.title}</div>
+                        <div class="countdown-item-date">${formatDate(new Date(countdown.endDate))}</div>
+                    </div>
+                    <div class="countdown-item-actions">
+                        <button class="countdown-toggle-btn ${countdown.hidden ? 'hidden' : ''}" data-id="${countdown.id}" title="${countdown.hidden ? '显示' : '隐藏'}">
+                            <i class="fas ${countdown.hidden ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                        </button>
+                        <button class="countdown-edit-btn" data-id="${countdown.id}" title="编辑">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="countdown-delete-btn" data-id="${countdown.id}" title="删除">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                countdownsListEl.appendChild(countdownItem);
+            });
+            
+            // 添加事件监听
+            document.querySelectorAll('.countdown-edit-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    editCountdown(id);
+                });
+            });
+            
+            document.querySelectorAll('.countdown-delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    deleteCountdown(id);
+                });
+            });
+            
+            document.querySelectorAll('.countdown-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    toggleCountdownVisibility(id);
+                });
+            });
+        }
+        
+        // 切换倒数日可见性
+        function toggleCountdownVisibility(id) {
+            const index = countdowns.findIndex(c => c.id === parseInt(id));
+            if (index !== -1) {
+                countdowns[index].hidden = !countdowns[index].hidden;
+                localStorage.setItem('countdowns', JSON.stringify(countdowns));
+                renderCountdownsList();
+                updateCountdownDisplay();
+                showToast(`已${countdowns[index].hidden ? '隐藏' : '显示'}该倒数日`);
+            }
+        }
+        
+        // 格式化日期
+        function formatDate(date) {
+            return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+        }
+        
+        // 添加自定义倒数日
+        function addCountdown() {
+            const title = countdownTitleInput.value.trim();
+            const dateValue = countdownDateInput.value;
+            
+            if (!title) {
+                showToast('请输入事件内容');
+                return;
+            }
+            
+            if (title.length > 10) {
+                showToast('事件内容最多10个字');
+                return;
+            }
+            
+            if (!dateValue) {
+                showToast('请选择结束时间');
+                return;
+            }
+            
+            const endDate = new Date(dateValue);
+            
+            const newCountdown = {
+                id: Date.now(),
+                title,
+                endDate: endDate.toISOString(),
+                hidden: false
+            };
+            
+            if (editingCountdownId) {
+                // 更新现有倒数日
+                const index = countdowns.findIndex(c => c.id === editingCountdownId);
+                if (index !== -1) {
+                    countdowns[index] = newCountdown;
+                    showToast('倒数日已更新');
+                }
+                editingCountdownId = null;
+            } else {
+                // 添加新倒数日
+                countdowns.push(newCountdown);
+                showToast('倒数日已添加');
+            }
+            
+            // 保存到localStorage
+            localStorage.setItem('countdowns', JSON.stringify(countdowns));
+            
+            // 清空表单
+            countdownTitleInput.value = '';
+            countdownDateInput.value = '';
+            
+            // 更新显示
+            renderCountdownsList();
+            updateCountdownDisplay();
+        }
+        
+        // 编辑倒数日
+        function editCountdown(id) {
+            const countdown = countdowns.find(c => c.id === parseInt(id));
+            if (countdown) {
+                countdownTitleInput.value = countdown.title;
+                countdownDateInput.value = formatDateTimeLocal(new Date(countdown.endDate));
+                editingCountdownId = countdown.id;
+                
+                // 滚动到表单
+                document.querySelector('.countdowns-form').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // 格式化日期时间本地格式
+        function formatDateTimeLocal(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+        
+        // 删除倒数日
+        function deleteCountdown(id) {
+            if (confirm('确定要删除这个倒数日吗？')) {
+                countdowns = countdowns.filter(c => c.id !== parseInt(id));
+                localStorage.setItem('countdowns', JSON.stringify(countdowns));
+                renderCountdownsList();
+                updateCountdownDisplay();
+                showToast('倒数日已删除');
+            }
+        }
+        
+        // 更新倒数日显示
+        function updateCountdownDisplay() {
+            const now = new Date(Date.now() + timeOffset);
+            
+            // 更新顶部显示
+            updateTopCountdowns(now);
+            
+            // 更新面板显示
+            updateCountdownPanel(now);
+            
+            // 倒数日面板始终显示
+            document.querySelector('.countdown-sidebar').style.display = 'flex';
+        }
+        
+        // 更新顶部倒数日
+        function updateTopCountdowns(now) {
+            // 清空顶部倒数日容器
+            topCountdownsEl.innerHTML = '';
+            
+            // 显示高考倒计时（如果启用）
+            if (showGaokaoCheckbox.checked) {
+                topCountdownsEl.appendChild(gaokaoCountdownEl);
+            }
+            
+            // 过滤出非隐藏的倒数日
+            const visibleCountdowns = countdowns.filter(c => !c.hidden);
+            
+            // 最多显示2个自定义倒数日（加上高考最多3个）
+            const maxCountdowns = Math.min(2, visibleCountdowns.length);
+            
+            // 添加自定义倒数日
+            for (let i = 0; i < maxCountdowns; i++) {
+                const countdown = visibleCountdowns[i];
+                const timeDiff = calculateTimeDiff(now, new Date(countdown.endDate));
+                
+                const countdownItem = document.createElement('span');
+                countdownItem.className = 'countdown-item';
+                countdownItem.innerHTML = `
+                    <i class="fas fa-calendar"></i>
+                    <span>${countdown.title}：${formatTimeDiff(timeDiff)}</span>
+                `;
+                topCountdownsEl.appendChild(countdownItem);
+            }
+        }
+        
+        // 计算时间差
+        function calculateTimeDiff(now, targetDate) {
+            // 确保目标日期在当前时间之后
+            if (targetDate < now) {
+                return { days: 0, hours: 0, minutes: 0 };
+            }
+            
+            const timeDiff = targetDate - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            return { days, hours, minutes };
+        }
+        
+        // 格式化时间差
+        function formatTimeDiff(timeDiff) {
+            if (timeDiff.days > 0) {
+                return `${timeDiff.days}天${timeDiff.hours}小时`;
+            } else if (timeDiff.hours > 0) {
+                return `${timeDiff.hours}小时${timeDiff.minutes}分钟`;
+            } else {
+                return `${timeDiff.minutes}分钟`;
+            }
+        }
+        
+        // 更新倒数日面板
+        function updateCountdownPanel(now) {
+            // 清空面板内容
+            countdownPanelItemsEl.innerHTML = '';
+            
+            // 添加高考倒计时（如果启用）
+            if (showGaokaoCheckbox.checked) {
+                const gaokaoTimeDiff = calculateGaokaoTimeDiff(now);
+                if (gaokaoTimeDiff !== null) {
+                    const gaokaoItem = document.createElement('div');
+                    gaokaoItem.className = 'countdown-panel-item';
+                    gaokaoItem.innerHTML = `
+                        <div class="countdown-panel-item-title">高考倒计时</div>
+                        <div class="countdown-panel-item-time">${formatTimeDiff(gaokaoTimeDiff)}</div>
+                    `;
+                    countdownPanelItemsEl.appendChild(gaokaoItem);
+                }
+            }
+            
+            // 添加自定义倒数日（无论是否隐藏）
+            countdowns.forEach(countdown => {
+                const timeDiff = calculateTimeDiff(now, new Date(countdown.endDate));
+                
+                const countdownItem = document.createElement('div');
+                countdownItem.className = 'countdown-panel-item';
+                countdownItem.innerHTML = `
+                    <div class="countdown-panel-item-title">${countdown.title}</div>
+                    <div class="countdown-panel-item-time">${formatTimeDiff(timeDiff)}</div>
+                `;
+                countdownPanelItemsEl.appendChild(countdownItem);
+            });
+            
+            // 如果没有倒数日，显示提示
+            if (countdownPanelItemsEl.children.length === 0) {
+                const emptyItem = document.createElement('div');
+                emptyItem.className = 'countdown-panel-item';
+                emptyItem.innerHTML = `
+                    <div class="countdown-panel-item-title">暂无倒数日</div>
+                `;
+                countdownPanelItemsEl.appendChild(emptyItem);
+            }
+            
+            // 倒数日面板始终显示
+            countdownPanelEl.style.display = 'flex';
+        }
+        
+        // 计算高考倒计时时间
+        function calculateGaokaoTimeDiff(now) {
+            const currentYear = now.getFullYear();
+            
+            // 高考日期范围：6月7日 00:00 至 6月9日 23:59:59.999
+            const gaokaoStart = new Date(currentYear, 5, 7);
+            const gaokaoEnd = new Date(currentYear, 5, 9, 23, 59, 59, 999);
+            
+            // 如果当前时间在高考期间内
+            if (now >= gaokaoStart && now <= gaokaoEnd) {
+                return null;
+            }
+            
+            // 确定目标高考日期（当前年或下一年）
+            let targetGaokao = gaokaoStart;
+            if (now > gaokaoEnd) {
+                targetGaokao = new Date(currentYear + 1, 5, 7);
+            }
+            
+            return calculateTimeDiff(now, targetGaokao);
+        }
         
         // 更新拓展金句状态显示
         function updateExtensionStatus() {
@@ -1773,22 +2330,6 @@
             updateExtensionStatus();
         }
         
-        // 性能监控
-        function startPerformanceMonitor() {
-            setInterval(() => {
-                // 检测内存使用
-                if (performance.memory) {
-                    const usedMB = performance.memory.usedJSHeapSize / (1024 * 1024);
-                    if (usedMB > memoryThreshold && !highMemoryUsage) {
-                        highMemoryUsage = true;
-                        showToast(`内存使用过高: ${usedMB.toFixed(2)}MB`);
-                    } else if (usedMB <= memoryThreshold && highMemoryUsage) {
-                        highMemoryUsage = false;
-                    }
-                }
-            }, 5000);
-        }
-        
         // 更新显示时间
         function updateTimeDisplay() {
             const now = new Date(Date.now() + timeOffset);
@@ -1807,7 +2348,7 @@
                 if (colonAfterHour) colonAfterHour.classList.add('blink-colon');
             }
             
-            if (showMillisecondsCheckbox.checked && !powerSavingMode) {
+            if (showMillisecondsCheckbox.checked) {
                 millisecondsEl.textContent = String(now.getMilliseconds()).padStart(3, '0');
                 document.querySelector('.milliseconds').style.display = 'inline';
             } else {
@@ -1824,90 +2365,13 @@
             
             updateGaokaoCountdown();
             updateNextExam();
+            updateCountdownDisplay();
         }
 
         // 高性能时间更新
         function updateTime(timestamp) {
             updateTimeDisplay();
-            
-            frameCount++;
-            if (timestamp - lastFpsUpdate >= 1000) {
-                currentFps = frameCount;
-                frameCount = 0;
-                lastFpsUpdate = timestamp;
-                
-                if (!powerSavingMode && currentFps < fpsThreshold) {
-                    powerSavingMode = true;
-                    powerSavingModeCheckbox.checked = true;
-                    applyPowerSavingMode();
-                    showToast(`检测到低帧率 (${currentFps}FPS)，已自动开启节能模式`);
-                }
-                
-                // 更新性能指示器提示
-                perfIndicator.setAttribute('data-tooltip', `FPS: ${currentFps} | 内存: ${getMemoryUsage()}MB`);
-            }
-            
-            if (!powerSavingMode) {
-                animationFrameId = requestAnimationFrame(updateTime);
-            }
-        }
-        
-        // 节能模式更新时间
-        function updateTimeInPowerSavingMode() {
-            updateTimeDisplay();
-        }
-        
-        // 获取内存使用情况
-        function getMemoryUsage() {
-            if (performance.memory) {
-                return (performance.memory.usedJSHeapSize / (1024 * 1024)).toFixed(2);
-            }
-            return 'N/A';
-        }
-        
-        // 应用节能模式
-        function applyPowerSavingMode() {
-            // 取消动画循环
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
-            
-            // 设置每秒更新的定时器
-            if (powerSavingInterval) clearInterval(powerSavingInterval);
-            powerSavingInterval = setInterval(updateTimeInPowerSavingMode, 1000);
-            
-            // 关闭毫秒显示
-            showMillisecondsCheckbox.checked = false;
-            document.querySelector('.milliseconds').style.display = 'none';
-            
-            // 更新性能指示器
-            perfIndicator.className = 'performance-indicator powersave';
-            perfIndicator.setAttribute('data-tooltip', `节能模式 - FPS: ${currentFps}`);
-            perfStatusEl.className = 'status-indicator offline';
-            perfStatusTextEl.textContent = '当前模式: 节能';
-            
-            saveSettings();
-        }
-        
-        // 应用正常模式
-        function applyNormalMode() {
-            // 清除节能模式的定时器
-            if (powerSavingInterval) {
-                clearInterval(powerSavingInterval);
-                powerSavingInterval = null;
-            }
-            
-            // 更新性能指示器
-            perfIndicator.className = 'performance-indicator normal';
-            perfIndicator.setAttribute('data-tooltip', `正常模式 - FPS: ${currentFps}`);
-            perfStatusEl.className = 'status-indicator';
-            perfStatusTextEl.textContent = '当前模式: 正常';
-            
-            // 启动动画循环
             animationFrameId = requestAnimationFrame(updateTime);
-            
-            saveSettings();
         }
         
         // 获取北京时间
@@ -1933,45 +2397,46 @@
             }
         }
         
-     function updateGaokaoCountdown() {
-    const now = new Date(Date.now() + timeOffset);
-    const currentYear = now.getFullYear();
-    
-    // 高考日期范围：6月7日 00:00 至 6月9日 23:59:59.999
-    const gaokaoStart = new Date(currentYear, 5, 7);
-    const gaokaoEnd = new Date(currentYear, 5, 9, 23, 59, 59, 999);
-    
-    // 如果当前时间在高考期间内
-    if (now >= gaokaoStart && now <= gaokaoEnd) {
-        gaokaoTextEl.innerHTML = `${currentYear}年高考进行中！<br>加油！`;
-        gaokaoCountdownEl.style.background = 'rgba(106, 17, 203, 0.2)';
-        return;
-    }
-    
-    // 确定目标高考日期（当前年或下一年）
-    let targetGaokao = gaokaoStart;
-    if (now > gaokaoEnd) {
-        targetGaokao = new Date(currentYear + 1, 5, 7);
-    }
-    
-    const timeDiff = targetGaokao.getTime() - now.getTime();
-    
-    // 高考已结束（理论上不会触发，保留安全判断）
-    if (timeDiff < 0) {
-        gaokaoTextEl.innerHTML = `${targetGaokao.getFullYear()}年高考已结束！`;
-        gaokaoCountdownEl.style.background = 'rgba(106, 17, 203, 0.1)';
-        return;
-    }
-    
-    // 计算倒计时
-    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hoursDiff = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutesDiff = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    
-    // 高考当天特殊处理（已覆盖在高考期间判断）
-    gaokaoTextEl.innerHTML = `距离${targetGaokao.getFullYear()}年高考还有<br>${daysDiff}天${hoursDiff}小时${minutesDiff}分钟`;
-    gaokaoCountdownEl.style.background = 'rgba(106, 17, 203, 0.1)';
-}
+        function updateGaokaoCountdown() {
+            const now = new Date(Date.now() + timeOffset);
+            const currentYear = now.getFullYear();
+            
+            // 高考日期范围：6月7日 00:00 至 6月9日 23:59:59.999
+            const gaokaoStart = new Date(currentYear, 5, 7);
+            const gaokaoEnd = new Date(currentYear, 5, 9, 23, 59, 59, 999);
+            
+            // 如果当前时间在高考期间内
+            if (now >= gaokaoStart && now <= gaokaoEnd) {
+                gaokaoTextEl.innerHTML = `${currentYear}年高考进行中！<br>加油！`;
+                gaokaoCountdownEl.style.background = 'rgba(106, 17, 203, 0.2)';
+                return;
+            }
+            
+            // 确定目标高考日期（当前年或下一年）
+            let targetGaokao = gaokaoStart;
+            if (now > gaokaoEnd) {
+                targetGaokao = new Date(currentYear + 1, 5, 7);
+            }
+            
+            const timeDiff = targetGaokao.getTime() - now.getTime();
+            
+            // 高考已结束（理论上不会触发，保留安全判断）
+            if (timeDiff < 0) {
+                gaokaoTextEl.innerHTML = `${targetGaokao.getFullYear()}年高考已结束！`;
+                gaokaoCountdownEl.style.background = 'rgba(106, 17, 203, 0.1)';
+                return;
+            }
+            
+            // 计算倒计时
+            const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hoursDiff = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesDiff = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // 高考当天特殊处理（已覆盖在高考期间判断）
+            gaokaoTextEl.innerHTML = `距离${targetGaokao.getFullYear()}年高考还有<br>${daysDiff}天${hoursDiff}小时${minutesDiff}分钟`;
+            gaokaoCountdownEl.style.background = 'rgba(106, 17, 203, 0.1)';
+        }
+        
         // 更新下一科考试信息
         function updateNextExam() {
             const now = new Date(Date.now() + timeOffset);
@@ -2051,22 +2516,55 @@
             }, 3000);
         }
 
+        // 显示金句（根据动画类型）
+        function displayQuote(text, author, type) {
+            // 清除现有内容和动画类
+            quoteTextEl.innerHTML = '';
+            quoteContentEl.classList.remove('fade-in', 'slide-up');
+            
+            // 应用选择的动画效果
+            if (quoteAnimationType === 'fade') {
+                quoteTextEl.textContent = text;
+                quoteContentEl.classList.add('fade-in');
+            } else if (quoteAnimationType === 'slide') {
+                quoteTextEl.textContent = text;
+                quoteContentEl.classList.add('slide-up');
+            } else if (quoteAnimationType === 'typewriter') {
+                typewriterEffect(text);
+            } else { // 无动画
+                quoteTextEl.textContent = text;
+            }
+            
+            // 设置作者和类型
+            setTimeout(() => {
+                let authorInfo = '';
+                if (author) {
+                    authorInfo = author;
+                } else {
+                    authorInfo = '未知';
+                }
+                
+                quoteAuthorEl.textContent = `—— ${authorInfo}`;
+                quoteTypeEl.textContent = type;
+            }, 300);
+        }
+
         // 打字机效果显示金句
         function typewriterEffect(text) {
             isTyping = true;
             let i = 0;
-            quoteContentEl.innerHTML = '';
+            quoteTextEl.innerHTML = '';
             quoteAuthorEl.textContent = '';
             quoteTypeEl.textContent = '';
             
             const typewriterInterval = setInterval(() => {
                 if (i < text.length) {
-                    quoteContentEl.innerHTML = text.substring(0, i + 1) + '<span class="cursor"></span>';
+                    quoteTextEl.innerHTML = text.substring(0, i + 1) + '<span class="cursor"></span>';
                     i++;
                 } else {
                     clearInterval(typewriterInterval);
                     isTyping = false;
-                    quoteContentEl.innerHTML = text;
+                    quoteTextEl.innerHTML = text;
                 }
             }, 50);
         }
@@ -2091,26 +2589,7 @@
                 const randomIndex = Math.floor(Math.random() * extensionQuotes.length);
                 const quote = extensionQuotes[randomIndex];
                 
-                quoteContentEl.innerHTML = '';
-                quoteAuthorEl.textContent = '';
-                quoteTypeEl.textContent = '';
-                
-                typewriterEffect(quote.hitokoto);
-                
-                setTimeout(() => {
-                    let authorInfo = '';
-                    if (quote.from_who) {
-                        authorInfo = quote.from_who;
-                        if (quote.from) authorInfo += ` · ${quote.from}`;
-                    } else if (quote.from) {
-                        authorInfo = `出自：${quote.from}`;
-                    } else {
-                        authorInfo = '未知';
-                    }
-                    
-                    quoteAuthorEl.textContent = `—— ${authorInfo}`;
-                    quoteTypeEl.textContent = getTypeName(quote.type);
-                }, quote.hitokoto.length * 50 + 300);
+                displayQuote(quote.hitokoto, quote.from || quote.from_who || '', getTypeName(quote.type));
                 
                 apiStatusEl.className = 'status-indicator';
                 apiStatusTextEl.textContent = '扩展金句';
@@ -2132,26 +2611,17 @@
                     }
                 }
                 
-                quoteContentEl.innerHTML = '';
-                quoteAuthorEl.textContent = '';
-                quoteTypeEl.textContent = '';
+                let authorInfo = '';
+                if (data.from_who) {
+                    authorInfo = data.from_who;
+                    if (data.from) authorInfo += ` · ${data.from}`;
+                } else if (data.from) {
+                    authorInfo = `出自：${data.from}`;
+                } else {
+                    authorInfo = '未知';
+                }
                 
-                typewriterEffect(data.hitokoto);
-                
-                setTimeout(() => {
-                    let authorInfo = '';
-                    if (data.from_who) {
-                        authorInfo = data.from_who;
-                        if (data.from) authorInfo += ` · ${data.from}`;
-                    } else if (data.from) {
-                        authorInfo = `出自：${data.from}`;
-                    } else {
-                        authorInfo = '未知';
-                    }
-                    
-                    quoteAuthorEl.textContent = `—— ${authorInfo}`;
-                    quoteTypeEl.textContent = getTypeName(data.type);
-                }, data.hitokoto.length * 50 + 300);
+                displayQuote(data.hitokoto, authorInfo, getTypeName(data.type));
                 
                 apiStatusEl.className = 'status-indicator';
                 apiStatusTextEl.textContent = 'API正常';
@@ -2166,12 +2636,7 @@
                 const randomIndex = Math.floor(Math.random() * localQuotes.length);
                 const localQuote = localQuotes[randomIndex];
                 
-                typewriterEffect(localQuote.quote);
-                
-                setTimeout(() => {
-                    quoteAuthorEl.textContent = `—— ${localQuote.author}`;
-                    quoteTypeEl.textContent = localQuote.type;
-                }, localQuote.quote.length * 50 + 300);
+                displayQuote(localQuote.quote, localQuote.author, localQuote.type);
                 
                 apiStatusEl.className = 'status-indicator offline';
                 apiStatusTextEl.textContent = '使用本地金句';
@@ -2210,7 +2675,7 @@
             
             if (finalUrl !== currentBgUrl) {
                 if (finalUrl) {
-                    document.body.style.background = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${finalUrl}')`;
+                    document.body.style.background = `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('${finalUrl}')`;
                     document.body.style.backgroundSize = 'cover';
                     document.body.style.backgroundPosition = 'center';
                 } else {
@@ -2364,18 +2829,17 @@
                 showMilliseconds: showMillisecondsCheckbox.checked,
                 showQuoteProgress: showQuoteProgressCheckbox.checked,
                 showBgProgress: showBgProgressCheckbox.checked,
+                showGaokao: showGaokaoCheckbox.checked,
+                showHolidayImage: showHolidayImageCheckbox.checked,
                 quoteTypes: Array.from(document.querySelectorAll('input[name="quoteType"]:checked')).map(cb => cb.value),
-                quoteInterval: parseInt(quoteIntervalInput.value) || 1,
-                bgInterval: parseInt(bgIntervalInput.value) || 30,
+                quoteInterval: parseFloat(quoteIntervalInput.value) || 1,
+                bgInterval: parseFloat(bgIntervalInput.value) || 30,
                 bgUrl: bgUrlInput.value,
                 currentPreset: currentPreset,
-                powerSavingMode: powerSavingMode,
-                hidePerfIndicator: hidePerfIndicatorCheckbox.checked,
-                fpsThreshold: parseInt(fpsThresholdInput.value) || 30,
-                memoryThreshold: parseInt(memoryThresholdInput.value) || 500,
                 displayPriority: document.querySelector('input[name="displayPriority"]:checked').value,
                 enableQuoteGuarantee: enableQuoteGuarantee,
-                ignoredSubjects: ignoredSubjects
+                ignoredSubjects: ignoredSubjects,
+                quoteAnimationType: document.querySelector('input[name="quoteAnimation"]:checked').value
             };
             
             return settings;
@@ -2386,8 +2850,10 @@
             showDateCheckbox.checked = settings.showDate;
             showSecondsCheckbox.checked = settings.showSeconds;
             showMillisecondsCheckbox.checked = settings.showMilliseconds;
+            showGaokaoCheckbox.checked = settings.showGaokao !== undefined ? settings.showGaokao : true;
             showQuoteProgressCheckbox.checked = settings.showQuoteProgress;
             showBgProgressCheckbox.checked = settings.showBgProgress;
+            showHolidayImageCheckbox.checked = settings.showHolidayImage !== undefined ? settings.showHolidayImage : true;
             
             document.querySelectorAll('input[name="quoteType"]').forEach(checkbox => {
                 checkbox.checked = settings.quoteTypes.includes(checkbox.value);
@@ -2400,13 +2866,14 @@
             currentPreset = settings.currentPreset;
             updatePresetButtons(currentPreset);
             
-            powerSavingMode = settings.powerSavingMode || false;
-            powerSavingModeCheckbox.checked = powerSavingMode;
-            hidePerfIndicatorCheckbox.checked = settings.hidePerfIndicator || false;
-            fpsThreshold = settings.fpsThreshold || 30;
-            memoryThreshold = settings.memoryThreshold || 500;
             enableQuoteGuarantee = settings.enableQuoteGuarantee !== undefined ? settings.enableQuoteGuarantee : true;
             ignoredSubjects = settings.ignoredSubjects || [];
+            quoteAnimationType = settings.quoteAnimationType || 'typewriter';
+            
+            // 设置金句动画类型
+            document.querySelectorAll('input[name="quoteAnimation"]').forEach(radio => {
+                radio.checked = (radio.value === quoteAnimationType);
+            });
             
             // 应用显示偏好设置
             document.body.classList.remove('quote-priority', 'time-priority');
@@ -2418,17 +2885,21 @@
                 quotePriorityRadio.checked = true;
             }
             
-            perfIndicator.style.display = hidePerfIndicatorCheckbox.checked ? 'none' : 'flex';
-            
             // 应用被忽略的科目设置
             document.querySelectorAll('input[name="ignoredSubject"]').forEach(checkbox => {
                 checkbox.checked = !ignoredSubjects.includes(checkbox.value);
             });
             
-            if (powerSavingMode) {
-                applyPowerSavingMode();
+            // 应用放假图片显示设置
+            updateHolidayImageVisibility();
+        }
+        
+        // 更新放假图片显示
+        function updateHolidayImageVisibility() {
+            if (showHolidayImage) {
+                countdownPanelEl.classList.remove('hide-holiday-image');
             } else {
-                applyNormalMode();
+                countdownPanelEl.classList.add('hide-holiday-image');
             }
         }
         
@@ -2454,18 +2925,17 @@
                 showMilliseconds: showMillisecondsCheckbox.checked,
                 showQuoteProgress: showQuoteProgressCheckbox.checked,
                 showBgProgress: showBgProgressCheckbox.checked,
+                showGaokao: showGaokaoCheckbox.checked,
+                showHolidayImage: showHolidayImageCheckbox.checked,
                 quoteTypes: Array.from(document.querySelectorAll('input[name="quoteType"]:checked')).map(cb => cb.value),
                 theme: currentTheme,
                 themeIndex: currentThemeIndex,
                 quoteInterval: quoteInterval,
                 bgInterval: bgIntervalTime,
-                powerSavingMode: powerSavingMode,
-                hidePerfIndicator: hidePerfIndicatorCheckbox.checked,
-                fpsThreshold: parseInt(fpsThresholdInput.value) || 30,
-                memoryThreshold: parseInt(memoryThresholdInput.value) || 500,
                 displayPriority: document.querySelector('input[name="displayPriority"]:checked').value,
                 enableQuoteGuarantee: enableQuoteGuarantee,
-                ignoredSubjects: ignoredSubjects
+                ignoredSubjects: ignoredSubjects,
+                quoteAnimationType: document.querySelector('input[name="quoteAnimation"]:checked').value
             };
             
             localStorage.setItem('appSettings', JSON.stringify(settings));
@@ -2480,8 +2950,10 @@
                 showDateCheckbox.checked = settings.showDate;
                 showSecondsCheckbox.checked = settings.showSeconds;
                 showMillisecondsCheckbox.checked = settings.showMilliseconds;
+                showGaokaoCheckbox.checked = settings.showGaokao !== undefined ? settings.showGaokao : true;
                 showQuoteProgressCheckbox.checked = settings.showQuoteProgress || true;
                 showBgProgressCheckbox.checked = settings.showBgProgress || true;
+                showHolidayImageCheckbox.checked = settings.showHolidayImage !== undefined ? settings.showHolidayImage : true;
                 
                 document.querySelector('.quote-progress-container').style.display = 
                     showQuoteProgressCheckbox.checked ? 'block' : 'none';
@@ -2509,6 +2981,12 @@
                     document.body.classList.add(`${currentTheme}-theme`);
                 }
                 
+                // 应用金句动画类型
+                quoteAnimationType = settings.quoteAnimationType || 'typewriter';
+                document.querySelectorAll('input[name="quoteAnimation"]').forEach(radio => {
+                    radio.checked = (radio.value === quoteAnimationType);
+                });
+                
                 // 应用显示偏好设置
                 document.body.classList.remove('quote-priority', 'time-priority');
                 if (settings.displayPriority === 'time') {
@@ -2529,40 +3007,33 @@
                     bgIntervalInput.value = bgIntervalTime;
                 }
                 
-                powerSavingMode = settings.powerSavingMode || false;
-                powerSavingModeCheckbox.checked = powerSavingMode;
-                hidePerfIndicatorCheckbox.checked = settings.hidePerfIndicator || false;
-                fpsThreshold = settings.fpsThreshold || 30;
-                memoryThreshold = settings.memoryThreshold || 500;
                 enableQuoteGuarantee = settings.enableQuoteGuarantee !== undefined ? settings.enableQuoteGuarantee : true;
                 ignoredSubjects = settings.ignoredSubjects || [];
-                
-                perfIndicator.style.display = hidePerfIndicatorCheckbox.checked ? 'none' : 'flex';
                 
                 // 应用被忽略的科目设置
                 document.querySelectorAll('input[name="ignoredSubject"]').forEach(checkbox => {
                     checkbox.checked = !ignoredSubjects.includes(checkbox.value);
                 });
                 
-                if (powerSavingMode) {
-                    applyPowerSavingMode();
-                }
+                // 应用放假图片显示设置
+                updateHolidayImageVisibility();
             } else {
                 showDateCheckbox.checked = true;
                 showSecondsCheckbox.checked = true;
                 showMillisecondsCheckbox.checked = false;
+                showGaokaoCheckbox.checked = true;
                 showQuoteProgressCheckbox.checked = true;
                 showBgProgressCheckbox.checked = true;
+                showHolidayImageCheckbox.checked = true;
                 selectAllTypes();
                 quoteTypes = Array.from(document.querySelectorAll('input[name="quoteType"]')).map(cb => cb.value);
                 quoteIntervalInput.value = 1;
                 bgIntervalInput.value = 30;
-                powerSavingModeCheckbox.checked = false;
-                hidePerfIndicatorCheckbox.checked = false;
                 quotePriorityRadio.checked = true;
                 document.body.classList.add('quote-priority');
                 enableQuoteGuarantee = true;
                 ignoredSubjects = [];
+                typewriterAnimationRadio.checked = true;
                 saveSettings();
             }
             
@@ -2582,6 +3053,9 @@
             } else {
                 applyPresetBackground('weimei', false, false);
             }
+            
+            // 应用倒数日面板设置
+            updateCountdownDisplay();
         }
         
         // 重置金句计时器
@@ -2669,7 +3143,9 @@
                 localStorage.removeItem('backgroundPreset');
                 localStorage.removeItem('customBackground');
                 localStorage.removeItem('extensionQuotes');
+                localStorage.removeItem('countdowns');
                 loadSettings();
+                initCountdowns();
                 fetchQuote();
                 showToast('设置已重置为默认值！');
             }
@@ -2683,8 +3159,8 @@
             loadSettings();
             animationFrameId = requestAnimationFrame(updateTime);
             fetchQuote();
-            startPerformanceMonitor();
             initExtensionQuotes();
+            initCountdowns();
             
             // 启动防休眠模式
             enableNoSleep();
@@ -2741,6 +3217,19 @@
                 });
             });
             
+            // 监听高考倒计时显示状态变化
+            showGaokaoCheckbox.addEventListener('change', () => {
+                saveSettings();
+                updateCountdownDisplay();
+            });
+            
+            // 监听放假图片显示状态变化
+            showHolidayImageCheckbox.addEventListener('change', () => {
+                showHolidayImage = showHolidayImageCheckbox.checked;
+                updateHolidayImageVisibility();
+                saveSettings();
+            });
+            
             // 保底机制按钮
             toggleGuaranteeBtn.addEventListener('click', () => {
                 enableQuoteGuarantee = !enableQuoteGuarantee;
@@ -2759,20 +3248,7 @@
             deselectAllBtn.addEventListener('click', deselectAllTypes);
             resetBtn.addEventListener('click', resetToDefault);
             downloadExtBtn.addEventListener('click', downloadExtensionQuotes);
-            
-            powerSavingModeCheckbox.addEventListener('change', () => {
-                powerSavingMode = powerSavingModeCheckbox.checked;
-                if (powerSavingMode) {
-                    applyPowerSavingMode();
-                } else {
-                    applyNormalMode();
-                }
-            });
-            
-            hidePerfIndicatorCheckbox.addEventListener('change', () => {
-                perfIndicator.style.display = hidePerfIndicatorCheckbox.checked ? 'none' : 'flex';
-                saveSettings();
-            });
+            addCountdownBtn.addEventListener('click', addCountdown);
             
             cancelSettingsBtn.addEventListener('click', () => {
                 if (tempSettings) {
@@ -2783,10 +3259,8 @@
             });
             
             saveSettingsBtn.addEventListener('click', () => {
-                quoteInterval = Math.max(1, parseInt(quoteIntervalInput.value) || 1);
-                bgIntervalTime = Math.max(1, parseInt(bgIntervalInput.value) || 30);
-                fpsThreshold = Math.max(15, Math.min(60, parseInt(fpsThresholdInput.value) || 30));
-                memoryThreshold = Math.max(100, Math.min(1000, parseInt(memoryThresholdInput.value) || 500));
+                quoteInterval = Math.max(0.5, parseFloat(quoteIntervalInput.value) || 1);
+                bgIntervalTime = Math.max(0.5, parseFloat(bgIntervalInput.value) || 30);
                 
                 const selectedTypes = [];
                 document.querySelectorAll('input[name="quoteType"]:checked').forEach(cb => {
@@ -2800,6 +3274,9 @@
                     quoteTypes = ['k'];
                     containerEl.classList.add('quote-hidden');
                 }
+                
+                // 获取金句动画类型
+                quoteAnimationType = document.querySelector('input[name="quoteAnimation"]:checked').value;
                 
                 // 如果用户关闭了拓展金句，删除相关数据
                 if (!extensionTypeCheckbox.checked) {
@@ -2877,7 +3354,7 @@
                             localStorage.setItem('customBackground', dataUrl);
                             localStorage.removeItem('backgroundPreset');
                             updatePresetButtons(null);
-                            if (bgInterval) clearInterval(bgInterval);
+                    if (bgInterval) clearInterval(bgInterval);
                             applyBackground(dataUrl, false, true);
                             bgInterval = setInterval(() => {
                                 applyBackground(dataUrl, true, false);
