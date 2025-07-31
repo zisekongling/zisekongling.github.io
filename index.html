@@ -86,14 +86,85 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--text);
             overflow: hidden;
             position: relative;
             padding: 10px;
             background-size: cover;
             background-position: center;
+            background-color: var(--primary);
         }
+        
+        /* 新增：背景容器 */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            z-index: 1;
+        }
+        .bg-layer.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .bg-layer.loading {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        /* 新增：加载状态指示器 */
+        .bg-loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .bg-loader.visible {
+            opacity: 0;
+        }
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loader-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
         .container {
             width: 100%;
             max-width: 1200px;
@@ -944,7 +1015,6 @@
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.5);
-            font-size: 1rem;
         }
         .dark-theme .form-control {
             background: rgba(30, 30, 50, 0.5);
@@ -1406,6 +1476,16 @@
     </style>
 </head>
 <body>
+    <!-- 新增：背景容器 -->
+    <div class="bg-container">
+        <div class="bg-layer active" id="bg-layer-1"></div>
+        <div class="bg-layer" id="bg-layer-2"></div>
+    </div>
+    
+    <!-- 新增：背景加载指示器 -->
+    <div class="bg-loader" id="bgLoader">
+    </div>
+    
     <div class="container">
         <header>
             <div class="logo-container">
@@ -1804,6 +1884,11 @@
         const contentWrapper = document.querySelector('.content-wrapper');
         const showHolidayImageCheckbox = document.getElementById('showHolidayImage');
         const aboutBtn = document.getElementById('aboutBtn');
+        const bgLoader = document.getElementById('bgLoader');
+        
+        // 背景层元素
+        const bgLayer1 = document.getElementById('bg-layer-1');
+        const bgLayer2 = document.getElementById('bg-layer-2');
         
         // 设置元素
         const showDateCheckbox = document.getElementById('showDate');
@@ -1882,6 +1967,9 @@
         let editingCountdownId = null; // 正在编辑的倒数日ID
         let quoteAnimationType = 'typewriter'; // 金句动画类型
         let showHolidayImage = true; // 是否显示放假倒计时图片
+        let activeBgLayer = bgLayer1; // 当前激活的背景层
+        let inactiveBgLayer = bgLayer2; // 当前未激活的背景层
+        let bgLoading = false; // 背景加载状态
 
         // 高考科目时间表
         const examSubjects = [
@@ -2697,26 +2785,41 @@
         
         // 应用背景
         function applyBackground(url, avoidCache = true, showNotification = false) {
-            let finalUrl = url;
+            // 如果正在加载中，直接返回
+            if (bgLoading) return;
             
-            document.body.style.background = '';
-            document.body.style.backgroundSize = '';
-            document.body.style.backgroundPosition = '';
+            // 显示加载指示器
+            bgLoader.classList.add('visible');
+            bgLoading = true;
+            
+            let finalUrl = url;
             
             if (avoidCache && url.startsWith('http')) {
                 const separator = url.includes('?') ? '&' : '?';
                 finalUrl = `${url}${separator}t=${Date.now()}`;
             }
             
-            if (finalUrl !== currentBgUrl) {
-                if (finalUrl) {
-                    document.body.style.background = `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('${finalUrl}')`;
-                    document.body.style.backgroundSize = 'cover';
-                    document.body.style.backgroundPosition = 'center';
-                } else {
-                    // 无背景时使用默认渐变
-                    document.body.style.background = `linear-gradient(135deg, var(--primary), var(--secondary))`;
-                }
+            // 创建临时图片元素进行预加载
+            const tempImg = new Image();
+            tempImg.onload = () => {
+                // 预加载完成后，应用背景
+                inactiveBgLayer.style.backgroundImage = `url('${finalUrl}')`;
+                
+                // 添加加载完成的样式
+                inactiveBgLayer.classList.add('active');
+                activeBgLayer.classList.remove('active');
+                
+                // 交换激活和非激活层
+                const temp = activeBgLayer;
+                activeBgLayer = inactiveBgLayer;
+                inactiveBgLayer = temp;
+                
+                // 隐藏加载指示器
+                setTimeout(() => {
+                    bgLoader.classList.remove('visible');
+                    bgLoading = false;
+                }, 300);
+                
                 currentBgUrl = finalUrl;
                 
                 if (showNotification) {
@@ -2728,7 +2831,17 @@
                 } else {
                     bgProgressEl.style.display = 'none';
                 }
-            }
+            };
+            
+            tempImg.onerror = () => {
+                // 加载失败时，隐藏加载指示器
+                bgLoader.classList.remove('visible');
+                bgLoading = false;
+                showToast('背景图片加载失败');
+            };
+            
+            // 开始加载
+            tempImg.src = finalUrl;
         }
         
         // 预设背景配置
