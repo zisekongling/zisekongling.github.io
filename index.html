@@ -326,12 +326,17 @@
         .settings-open .main-content {
             transform: translateY(-100%);
         }
-        .countdown-sidebar {
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+
+.countdown-sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* 设置最大高度 */
+    max-height: 483px; /* 自定义最大高度值 */
+    /* 处理内容溢出 */
+    overflow-y: auto; /* 垂直溢出时显示滚动条 */
+}
         
         /* 时间显示区域 */
         .time-section {
@@ -1289,17 +1294,11 @@
             .time-display {
                 font-size: 3rem;
             }
-            .milliseconds {
-                font-size: 1.5rem;
-            }
             .quote-hidden .time-display {
                 font-size: 4.5rem !important;
             }
             .quote-content {
                 font-size: 1.3rem;
-            }
-            .quote-author {
-                font-size: 1rem;
             }
             .preset-btn {
                 min-width: 90px;
@@ -1546,6 +1545,8 @@
     
     <!-- 背景加载指示器 -->
     <div class="bg-loader" id="bgLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">背景加载中...</div>
     </div>
     
     <div class="container">
@@ -1661,9 +1662,10 @@
             </div>
             
             <div class="settings-grid">
-                <div class="setting-group" id="timeSettingsGroup">
+                <!-- 合并时间显示设置和显示偏好 -->
+                <div class="setting-group" id="displaySettingsGroup">
                     <div class="setting-group-header">
-                        <h3><i class="fas fa-clock"></i> 时间显示设置</h3>
+                        <h3><i class="fas fa-desktop"></i> 显示设置</h3>
                         <i class="fas fa-chevron-down toggle-icon"></i>
                     </div>
                     <div class="setting-group-content">
@@ -1680,17 +1682,14 @@
                             <label class="checkbox-item">
                                 <input type="checkbox" id="showGaokao" checked> 显示高考倒计时
                             </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="showQuoteProgress" checked> 显示金句进度条
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="showBgProgress" checked> 显示背景进度条
+                            </label>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="setting-group" id="displaySettingsGroup">
-                    <div class="setting-group-header">
-                        <h3><i class="fas fa-balance-scale"></i> 显示偏好</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="setting-group-content">
-                        <div class="radio-group">
+                        <div class="radio-group" style="margin-top: 10px;">
                             <label class="radio-item">
                                 <input type="radio" name="displayPriority" id="quotePriority" value="quote" checked> 金句优先
                             </label>
@@ -1756,6 +1755,7 @@
                     </div>
                 </div>
                 
+                <!-- 合并金句设置和金句动画效果 -->
                 <div class="setting-group" id="quoteSettingsGroup">
                     <div class="setting-group-header">
                         <h3><i class="fas fa-quote-right"></i> 金句设置</h3>
@@ -1825,35 +1825,25 @@
                             </div>
                         </div>
                         
+                        <!-- 合并金句动画效果 -->
+                        <div style="margin-top: 15px;">
+                            <h4><i class="fas fa-film"></i> 金句动画效果</h4>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="quoteAnimation" id="typewriterAnimation" value="typewriter" checked> 打字机效果
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="quoteAnimation" id="noAnimation" value="none"> 无动画
+                                </label>
+                            </div>
+                        </div>
+                        
                         <div class="api-status">
                             <div class="status-indicator" id="extStatus"></div>
                             <span id="extStatusText">拓展金句: 已启用 (5条)</span>
                             <button type="button" class="download-btn" id="downloadExtBtn" title="重新下载拓展金句">
                                 <i class="fas fa-download"></i>
                             </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="setting-group" id="animationSettingsGroup">
-                    <div class="setting-group-header">
-                        <h3><i class="fas fa-film"></i> 金句动画效果</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="setting-group-content">
-                        <div class="radio-group">
-                            <label class="radio-item">
-                                <input type="radio" name="quoteAnimation" id="typewriterAnimation" value="typewriter" checked> 打字机效果
-                            </label>
-                            <label class="radio-item">
-                                <input type="radio" name="quoteAnimation" id="fadeAnimation" value="fade"> 淡入效果
-                            </label>
-                            <label class="radio-item">
-                                <input type="radio" name="quoteAnimation" id="slideAnimation" value="slide"> 上滑效果
-                            </label>
-                            <label class="radio-item">
-                                <input type="radio" name="quoteAnimation" id="noAnimation" value="none"> 无动画
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -1910,23 +1900,6 @@
                             </label>
                             <label class="subject-item">
                                 <input type="checkbox" name="ignoredSubject" value="生物"> 生物
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="setting-group" id="progressSettingsGroup">
-                    <div class="setting-group-header">
-                        <h3><i class="fas fa-tasks"></i> 进度条设置</h3>
-                        <i class="fas fa-chevron-down toggle-icon"></i>
-                    </div>
-                    <div class="setting-group-content">
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" id="showQuoteProgress" checked> 显示金句进度条
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" id="showBgProgress" checked> 显示背景进度条
                             </label>
                         </div>
                     </div>
@@ -2077,8 +2050,6 @@
         
         // 金句动画效果设置元素
         const typewriterAnimationRadio = document.getElementById('typewriterAnimation');
-        const fadeAnimationRadio = document.getElementById('fadeAnimation');
-        const slideAnimationRadio = document.getElementById('slideAnimation');
         const noAnimationRadio = document.getElementById('noAnimation');
         
         // 状态变量
@@ -2543,7 +2514,7 @@
         }
 
         // 下载扩展金句JSON
-        async function downloadExtensionQuotes() {
+        async function downloadExtensionQuotes(silent = false) {
             try {
                 // 显示下载状态
                 extStatusEl.className = 'status-indicator pulse';
@@ -2561,7 +2532,10 @@
                 if (Array.isArray(jsonData) && jsonData.length > 0) {
                     extensionQuotes = jsonData;
                     localStorage.setItem('extensionQuotes', JSON.stringify(jsonData));
-                    showToast('扩展金句已更新');
+                    localStorage.setItem('extensionQuotesLastUpdate', Date.now());
+                    if (!silent) {
+                        showToast('扩展金句已更新');
+                    }
                     updateExtensionStatus();
                     downloadRetryCount = 0; // 重置重试计数器
                     
@@ -2577,13 +2551,17 @@
                 if (downloadRetryCount < maxRetries) {
                     downloadRetryCount++;
                     const delay = Math.min(3000, downloadRetryCount * 500); // 指数退避
-                    setTimeout(downloadExtensionQuotes, delay);
-                    showToast(`下载失败，正在重试 (${downloadRetryCount}/${maxRetries})`);
+                    setTimeout(() => downloadExtensionQuotes(silent), delay);
+                    if (!silent) {
+                        showToast(`下载失败，正在重试 (${downloadRetryCount}/${maxRetries})`);
+                    }
                 } else {
                     // 使用示例数据作为备用
                     extensionQuotes = sampleExtensionQuotes;
                     localStorage.setItem('extensionQuotes', JSON.stringify(sampleExtensionQuotes));
-                    showToast('使用本地扩展金句');
+                    if (!silent) {
+                        showToast('使用本地扩展金句');
+                    }
                     updateExtensionStatus();
                     downloadRetryCount = 0; // 重置重试计数器
                     
@@ -2651,6 +2629,7 @@
         function initExtensionQuotes() {
             const savedQuotes = localStorage.getItem('extensionQuotes');
             const savedTags = localStorage.getItem('filteredTags');
+            const lastUpdate = localStorage.getItem('extensionQuotesLastUpdate');
             
             if (savedQuotes) {
                 try {
@@ -2676,6 +2655,13 @@
             
             // 提取标签
             extractTags();
+            
+            // 检查是否需要静默更新
+            const now = Date.now();
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            if (extensionTypeCheckbox.checked && (!lastUpdate || now - lastUpdate > twentyFourHours)) {
+                downloadExtensionQuotes(true); // 静默更新
+            }
         }
         
         // 更新显示时间
@@ -2871,13 +2857,7 @@
             quoteContentEl.classList.remove('fade-in', 'slide-up');
             
             // 应用选择的动画效果
-            if (quoteAnimationType === 'fade') {
-                quoteTextEl.textContent = text;
-                quoteContentEl.classList.add('fade-in');
-            } else if (quoteAnimationType === 'slide') {
-                quoteTextEl.textContent = text;
-                quoteContentEl.classList.add('slide-up');
-            } else if (quoteAnimationType === 'typewriter') {
+            if (quoteAnimationType === 'typewriter') {
                 typewriterEffect(text);
             } else { // 无动画
                 quoteTextEl.textContent = text;
@@ -3044,10 +3024,10 @@
             // 创建临时图片元素进行预加载
             const tempImg = new Image();
             tempImg.onload = () => {
-                // 预加载完成后，应用背景
+                // 预加载完成后，将新背景应用到非激活层
                 inactiveBgLayer.style.backgroundImage = `url('${finalUrl}')`;
                 
-                // 添加加载完成的样式
+                // 添加加载完成的样式：将非激活层设为激活（淡入），同时将原来的激活层设为非激活（淡出）
                 inactiveBgLayer.classList.add('active');
                 activeBgLayer.classList.remove('active');
                 
@@ -3061,7 +3041,7 @@
                     clearTimeout(bgClearTimeout);
                 }
                 
-                // 5秒后清除旧背景
+                // 5秒后清除非激活层（现在是非激活层）的背景图片
                 bgClearTimeout = setTimeout(() => {
                     inactiveBgLayer.style.backgroundImage = '';
                 }, 5000);
@@ -3086,13 +3066,12 @@
             };
             
             tempImg.onerror = () => {
-                // 加载失败时，隐藏加载指示器
+                // 错误处理，重试机制（最多3次）
                 bgLoader.classList.remove('visible');
                 bgLoading = false;
                 showToast('背景图片加载失败');
             };
             
-            // 开始加载
             tempImg.src = finalUrl;
         }
         
@@ -3214,13 +3193,17 @@
             containerEl.classList.toggle('settings-open');
             
             if (containerEl.classList.contains('settings-open')) {
-                // 设置打开时隐藏倒数日面板
-                countdownSidebar.style.display = 'none';
+                // 设置打开时隐藏所有内容卡片（除了设置面板）
+                document.querySelector('header').style.display = 'none';
+                document.querySelector('.main-content').style.display = 'none';
+                document.querySelector('.countdown-sidebar').style.display = 'none';
                 tempSettings = getCurrentFormSettings();
                 refreshBtnEl.classList.add('hidden');
             } else {
-                // 设置关闭时显示倒数日面板
-                countdownSidebar.style.display = 'flex';
+                // 设置关闭时显示这些卡片
+                document.querySelector('header').style.display = 'flex';
+                document.querySelector('.main-content').style.display = 'flex';
+                document.querySelector('.countdown-sidebar').style.display = 'flex';
                 refreshBtnEl.classList.remove('hidden');
             }
         }
