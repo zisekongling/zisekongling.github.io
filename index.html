@@ -2464,29 +2464,33 @@
                 elements.extStatus.className = 'status-indicator pulse';
                 elements.extStatusText.textContent = '下载中...';
                 
-                // 使用CORS代理并添加时间戳防止缓存
-                const proxyUrl = '';
-                const targetUrl = 'https://bj-time.netlify.app/.netlify/functions/jinju';
-                const response = await fetch(`${proxyUrl}${encodeURIComponent(targetUrl)}&t=${Date.now()}`);
+                // 使用Netlify函数代理
+                const response = await fetch('/.netlify/functions/jinju');
                 
                 if (!response.ok) throw new Error('扩展金句下载失败');
                 
                 const data = await response.json();
-                const jsonData = JSON.parse(data.contents);
-                if (Array.isArray(jsonData) && jsonData.length > 0) {
-                    extensionQuotes = jsonData;
-                    localStorage.setItem('extensionQuotes', JSON.stringify(jsonData));
-                    localStorage.setItem('extensionQuotesLastUpdate', Date.now());
-                    if (!silent) {
-                        showToast('扩展金句已更新');
+                
+                // 解析返回的数据
+                if (data.success && data.contents) {
+                    const jsonData = JSON.parse(data.contents);
+                    if (Array.isArray(jsonData) && jsonData.length > 0) {
+                        extensionQuotes = jsonData;
+                        localStorage.setItem('extensionQuotes', JSON.stringify(jsonData));
+                        localStorage.setItem('extensionQuotesLastUpdate', Date.now());
+                        if (!silent) {
+                            showToast('扩展金句已更新');
+                        }
+                        updateExtensionStatus();
+                        downloadRetryCount = 0; // 重置重试计数器
+                        
+                        // 更新标签
+                        extractTags();
+                    } else {
+                        throw new Error('无效的扩展金句数据');
                     }
-                    updateExtensionStatus();
-                    downloadRetryCount = 0; // 重置重试计数器
-                    
-                    // 更新标签
-                    extractTags();
                 } else {
-                    throw new Error('无效的扩展金句数据');
+                    throw new Error('API返回格式错误');
                 }
             } catch (error) {
                 console.error('下载扩展金句失败:', error);
@@ -2611,13 +2615,13 @@
         // 获取北京时间
         async function fetchBeijingTime() {
             try {
-                const response = await fetch('https://bj-time.netlify.app/.netlify/functions/bj-time');
+                const response = await fetch('/.netlify/functions/bj-time');
                 if (!response.ok) throw new Error('时间API请求失败');
                 const data = await response.json();
                 
-                if (data.code === 200) {
-                    // 解析返回的时间字符串
-                    const timeString = data.time;
+                if (data.success && data.originalData && data.originalData.code === 200) {
+                    // 使用originalData字段中的时间数据
+                    const timeString = data.originalData.time;
                     const beijingTime = new Date(timeString);
                     const localTime = new Date();
                     timeOffset = beijingTime - localTime;
