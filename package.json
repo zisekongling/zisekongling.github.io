@@ -1,0 +1,11 @@
+{
+  "name": "bj-cors-proxy",
+  "version": "1.0.0",
+  "description": "bjtime CORS Proxy for Netlify",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "scripts": {
+    "build": "echo 'No build step required'"
+  }
+}
