@@ -1,0 +1,168 @@
+.dark-theme {
+    --primary: #8aa2ff;
+    --secondary: #c097f5;
+    --accent: #ff8e8e;
+    --text: #f0f0f0;
+    --bg: #1a1a2e;
+    --card-bg: rgba(30, 30, 46, 0.7);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    --gaokao-color: #ff8e8e;
+}
+
+.ocean-theme {
+    --primary: #3498db;
+    --secondary: #1abc9c;
+    --accent: #9b59b6;
+    --text: #2c3e50;
+    --bg: #ecf0f1;
+    --card-bg: rgba(236, 240, 241, 0.7);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --gaokao-color: #e74c3c;
+    --progress-normal: #2ecc71;
+    --progress-warning: #e74c3c;
+}
+
+.forest-theme {
+    --primary: #27ae60;
+    --secondary: #f39c12;
+    --accent: #c0392b;
+    --text: #34495e;
+    --bg: #ecf0f1;
+    --card-bg: rgba(236, 240, 241, 0.7);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --gaokao-color: #16a085;
+    --progress-normal: #2ecc71;
+    --progress-warning: #e74c3c;
+}
+
+.sunset-theme {
+    --primary: #e74c3c;
+    --secondary: #e67e22;
+    --accent: #9b59b6;
+    --text: #2c3e50;
+    --bg: #f5d76e;
+    --card-bg: rgba(245, 215, 110, 0.7);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --gaokao-color: #c0392b;
+    --progress-normal: #2ecc71;
+    --progress-warning: #e74c3c;
+}
+
+.midnight-theme {
+    --primary: #8e44ad;
+    --secondary: #3498db;
+    --accent: #1abc9c;
+    --text: #ecf0f1;
+    --bg: #2c3e50;
+    --card-bg: rgba(44, 62, 80, 0.7);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    --gaokao-color: #9b59b6;
+    --progress-normal: #2ecc71;
+    --progress-warning: #e74c3c;
+}
+
+.sakura-theme {
+    --primary: #e84393;
+    --secondary: #fd79a8;
+    --accent: #6c5ce7;
+    --text: #2d3436;
+    --bg: #ffcccc;
+    --card-bg: rgba(255, 204, 204, 0.7);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --gaokao-color: #e84393;
+    --progress-normal: #2ecc71;
+    --progress-warning: #e74c3c;
+}
+
+.high-contrast-theme {
+    --primary: #ffffff;
+    --secondary: #000000;
+    --accent: #ff0000;
+    --text: #ffffff;
+    --bg: #000000;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+    --gaokao-color: #ff0000;
+}
+
+.minimal-theme {
+    --primary: #6c757d;
+    --secondary: #adb5bd;
+    --accent: #495057;
+    --text: #212529;
+    --bg: #f8f9fa;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --gaokao-color: #6c757d;
+}
+
+.nature-theme {
+    --primary: #556b2f;
+    --secondary: #98fb98;
+    --accent: #8fbc8f;
+    --text: #2f4f2f;
+    --bg: #f0f8f0;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --gaokao-color: #556b2f;
+}
+
+/* 布局优先级样式 */
+.quote-priority .time-section {
+    flex: 1;
+}
+
+.quote-priority .quote-section {
+    flex: 2;
+}
+
+.quote-priority .time-display {
+    font-size: 3.3rem;
+}
+
+.quote-priority .quote-content {
+    font-size: 1.8rem;
+}
+
+.time-priority .time-section {
+    flex: 2;
+}
+
+.time-priority .quote-section {
+    flex: 1;
+}
+
+.time-priority .time-display {
+    font-size: 4.8rem;
+}
+
+.time-priority .quote-content {
+    font-size: 1.4rem;
+}
+
+.quote-hidden .quote-section {
+    display: none;
+}
+
+.quote-hidden .time-section {
+    height: 70vh;
+    justify-content: center;
+}
+
+.quote-hidden .time-display {
+    font-size: 5.5rem !important;
+}
+
+.fixed-cards .time-section,
+.fixed-cards .quote-section {
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.fixed-cards .time-section {
+    justify-content: center;
+}
+
+.fixed-cards .quote-content {
+    overflow: auto;
+}

@@ -1,0 +1,435 @@
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    text-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: rgba(110, 142, 251, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(110, 142, 251, 0.3);
+}
+
+.btn-small {
+    padding: 5px 12px;
+    font-size: 0.9rem;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.btn:hover .tooltip {
+    opacity: 1;
+}
+
+.countdown-item {
+    font-size: 1.1rem;
+    background: rgba(106, 17, 203, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: var(--primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    line-height: 1.3;
+    min-width: 140px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gaokao-countdown {
+    animation: pulse 2s infinite;
+    color: var(--gaokao-color);
+    font-weight: 700;
+    background: rgba(255, 107, 107, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.next-exam {
+    font-size: 1rem;
+}
+
+.date-display {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+    text-align: center;
+}
+
+.time-display {
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: var(--text);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    transition: font-size 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.milliseconds {
+    font-size: 1.8rem;
+    color: var(--accent);
+    align-self: flex-end;
+    margin-bottom: 5px;
+}
+
+.countdown-panel-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(106, 17, 203, 0.05);
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.countdown-panel-item-title {
+    font-weight: 600;
+    color: var(--text);
+    flex: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.countdown-panel-item-time {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1rem;
+    flex: 1;
+    text-align: right;
+    min-width: fit-content;
+}
+
+.quote-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.quote-header h2 {
+    font-size: 1.3rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quote-content {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    text-align: center;
+    color: var(--text);
+    font-style: italic;
+    padding: 0 15px;
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.quote-text {
+    max-height: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.quote-content::before,
+.quote-content::after {
+    content: '"';
+    font-size: 2.5rem;
+    color: rgba(106, 17, 203, 0.2);
+    position: absolute;
+    z-index: 1;
+}
+
+.quote-content::before {
+    top: 5px;
+    left: 5px;
+}
+
+.quote-content::after {
+    bottom: 5px;
+    right: 5px;
+}
+
+.quote-author {
+    font-size: 1.1rem;
+    text-align: right;
+    color: var(--text);
+    opacity: 0.8;
+    margin-top: 8px;
+    padding-right: 15px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.quote-type {
+    font-size: 0.9rem;
+    position: absolute;
+    bottom: 12px;
+    left: 15px;
+    background: rgba(106, 17, 203, 0.1);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.8rem;
+    background: var(--accent);
+    margin-left: 3px;
+    vertical-align: middle;
+    animation: blink 1s infinite;
+}
+
+.progress-container {
+    position: absolute;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(1);
+    transition: transform 0.3s linear;
+}
+
+.bg-progress {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.quote-progress-container {
+    width: 120px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    margin-left: 12px;
+}
+
+.quote-progress-bar {
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s linear;
+}
+
+.toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: var(--card-bg);
+    color: var(--text);
+    padding: 18px 28px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-out;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast i {
+    font-size: 1.6rem;
+    color: #2ecc71;
+}
+
+.floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 100;
+    border: none;
+}
+
+.floating-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+.floating-btn:hover {
+    transform: translateY(-5px) rotate(15deg);
+}
+
+.holiday-image-container {
+    width: 207px;
+    height: 186.3px;
+    margin: 15px auto 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15));
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.holiday-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.hide-holiday-image .holiday-image-container {
+    display: none;
+}
+
+.api-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(106, 17, 203, 0.05);
+    font-size: 0.95rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2ecc71;
+}
+
+.status-indicator.offline {
+    background: #e74c3c;
+}
+
+.status-indicator.pulse {
+    animation: pulse 1s infinite;
+}
+
+.download-btn {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.download-btn:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+}
+
+.blink-colon {
+    animation: blink 1s infinite;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+.next-exam-container {
+    margin-left: 10px;
+    display: none;
+}
+
+.gaokao-exam {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
