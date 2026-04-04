@@ -1,8 +1,10 @@
 {
   "name": "bj-cors-proxy",
   "version": "1.0.0",
-  "description": "bjtime CORS Proxy for Netlify",
+  "description": "bjtime CORS Proxy for Netlify (with image download & serve)",
   "dependencies": {
+    "@netlify/blobs": "^1.1.0",
+    "@netlify/functions": "^2.0.0",
     "node-fetch": "^2.6.7"
   },
   "scripts": {
