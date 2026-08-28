@@ -31,6 +31,7 @@ const elements = {
     drawerQuote: document.getElementById('drawerQuote'),
     drawerBg: document.getElementById('drawerBg'),
     drawerTheme: document.getElementById('drawerTheme'),
+    drawerOutfit: document.getElementById('drawerOutfit'),
     extStatus: document.getElementById('extStatus'),
     extStatusText: document.getElementById('extStatusText'),
     downloadExtBtn: document.getElementById('downloadExtBtn'),
@@ -91,7 +92,11 @@ const elements = {
     currentThemeName: document.getElementById('currentThemeName'),
     currentThemeDesc: document.getElementById('currentThemeDesc'),
     followSystemTheme: document.getElementById('followSystemTheme'),
-    themePreview: document.getElementById('themePreview')
+    themePreview: document.getElementById('themePreview'),
+    outfitSelector: document.getElementById('outfitSelector'),
+    outfitCards: document.querySelectorAll('.outfit-card'),
+    currentOutfitName: document.getElementById('currentOutfitName'),
+    currentOutfitDesc: document.getElementById('currentOutfitDesc')
 };
 
 // 全局状态变量
@@ -99,6 +104,57 @@ let currentTheme = 'light';
 const themes = ['light', 'dark', 'ocean', 'forest', 'sunset', 'midnight', 'sakura', 'high-contrast', 'minimal', 'nature', 'dawn', 'paper', 'studynight', 'nebula'];
 let currentThemeIndex = 0;
 let followSystemTheme = false;
+
+// ============ 套装系统 ============
+// 套装 = 完整视觉皮肤（布局/组件/字体/配色/装饰全部独立），每套一个完整 CSS 包
+// 手账(shouzhang) 使用现有全局 CSS 作为基底；其余套装通过 body.outfit-<id> 独立覆盖
+const outfits = [
+    {
+        id: 'shouzhang',
+        name: '纸上时光',
+        desc: '手账纸片 · 胶带马克笔，温暖治愈',
+        defaultTheme: 'light',
+        themes: ['light', 'dark', 'ocean', 'forest', 'sunset', 'midnight', 'sakura', 'high-contrast', 'minimal', 'nature', 'dawn', 'paper', 'studynight', 'nebula']
+    },
+    {
+        id: 'macaron',
+        name: '甜梦巴黎',
+        desc: '马卡龙玻璃拟态 · 粉彩梦幻',
+        defaultTheme: 'light',
+        themes: ['light', 'dark', 'ocean', 'forest', 'sunset', 'midnight', 'sakura', 'high-contrast', 'minimal', 'nature', 'dawn', 'paper', 'studynight', 'nebula']
+    },
+    {
+        id: 'kawaii',
+        name: '萌力全开',
+        desc: '高饱和可爱 · 软萌圆润',
+        defaultTheme: 'light',
+        themes: ['light', 'sakura', 'dawn', 'paper', 'nebula', 'sunset']
+    },
+    {
+        id: 'cyberpunk',
+        name: '霓虹都市',
+        desc: '赛博朋克 · 霓虹全息',
+        defaultTheme: 'dark',
+        themes: ['dark', 'midnight', 'studynight', 'ocean', 'nebula']
+    },
+    {
+        id: 'editorial',
+        name: '纸墨宣言',
+        desc: '杂志大字报 · 大胆 editorial',
+        defaultTheme: 'dark',
+        themes: ['dark', 'light', 'minimal', 'high-contrast']
+    },
+    {
+        id: 'vintage',
+        name: '旧日终端',
+        desc: '极致复古 · 电子管/翻页钟/CRT',
+        defaultTheme: 'dark',
+        themes: ['dark', 'midnight', 'studynight', 'sunset']
+    }
+];
+let currentOutfit = 'shouzhang';
+const outfitDisplayNames = {};
+outfits.forEach(o => { outfitDisplayNames[o.id] = o.name; });
 
 // 主题描述信息
 const themeDescriptions = {

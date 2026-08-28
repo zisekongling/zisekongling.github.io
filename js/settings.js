@@ -81,6 +81,7 @@ function saveSettings() {
         showHolidayImage: elements.showHolidayImageCheckbox.checked,
         quoteTypes: Array.from(document.querySelectorAll('input[name="quoteType"]:checked')).map(cb=>cb.value),
         theme: currentTheme, themeIndex: currentThemeIndex,
+        outfit: currentOutfit,
         followSystemTheme: elements.followSystemTheme ? elements.followSystemTheme.checked : false,
         quoteInterval: quoteInterval, bgInterval: bgIntervalTime,
         displayPriority: document.querySelector('input[name="displayPriority"]:checked').value,
@@ -116,7 +117,9 @@ function loadSettings() {
             elements.followSystemTheme.checked = followSystemTheme;
         }
         
-        applyTheme(currentTheme);
+        // 恢复套装（内部会应用正确主题）
+        let savedOutfit = s.outfit || localStorage.getItem('outfit') || 'shouzhang';
+        applyOutfit(savedOutfit);
         
         if (followSystemTheme) {
             const systemTheme = checkSystemTheme();
@@ -174,7 +177,7 @@ function loadSettings() {
         blur = 5;
         if (elements.opacitySlider) elements.opacitySlider.value = opacity;
         if (elements.blurSlider) elements.blurSlider.value = blur;
-        applyTheme('light');
+        applyOutfit('shouzhang');
         saveSettings();
     }
     document.querySelector('.quote-progress-container').style.display = elements.showQuoteProgressCheckbox.checked ? 'block' : 'none';

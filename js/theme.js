@@ -1,9 +1,39 @@
-// ======================== 主题、全屏等UI ========================
+// ======================== 套装、主题、全屏等UI ========================
+
+// 切换套装：应用套装类 + 默认主题
+function applyOutfit(outfitId) {
+    if(!outfitId || !outfits.some(o=>o.id===outfitId)) outfitId = 'shouzhang';
+    currentOutfit = outfitId;
+    
+    // 移除所有套装类
+    document.body.classList.remove(...outfits.map(o=>'outfit-'+o.id));
+    document.body.classList.add('outfit-'+outfitId);
+    
+    // 当前套装的主题列表
+    const outfit = outfits.find(o=>o.id===outfitId);
+    // 若当前主题不在该套装支持列表，切到套装默认主题
+    if(outfit && !outfit.themes.includes(currentTheme)) {
+        applyTheme(outfit.defaultTheme);
+    } else {
+        applyTheme(currentTheme);
+    }
+    
+    localStorage.setItem('outfit', currentOutfit);
+    updateOutfitCards();
+}
+
+// 循环切换套装（下一个）
+function toggleOutfit() {
+    const idx = outfits.findIndex(o=>o.id===currentOutfit);
+    const next = outfits[(idx+1)%outfits.length];
+    applyOutfit(next.id);
+}
 
 function toggleTheme() {
-    currentThemeIndex = (currentThemeIndex+1)%themes.length;
-    currentTheme = themes[currentThemeIndex];
-    applyTheme(currentTheme);
+    const outfit = outfits.find(o=>o.id===currentOutfit) || outfits[0];
+    currentThemeIndex = outfit.themes.indexOf(currentTheme);
+    currentThemeIndex = (currentThemeIndex+1)%outfit.themes.length;
+    applyTheme(outfit.themes[currentThemeIndex]);
 }
 
 function applyTheme(theme) {
@@ -26,6 +56,11 @@ function updateThemeInfo() {
     if (elements.currentThemeName && elements.currentThemeDesc) {
         elements.currentThemeName.textContent = getThemeDisplayName(currentTheme);
         elements.currentThemeDesc.textContent = themeDescriptions[currentTheme] || '无描述';
+    }
+    if (elements.currentOutfitName && elements.currentOutfitDesc) {
+        const outfit = outfits.find(o=>o.id===currentOutfit) || outfits[0];
+        elements.currentOutfitName.textContent = outfit.name;
+        elements.currentOutfitDesc.textContent = outfit.desc || '';
     }
 }
 
@@ -51,13 +86,26 @@ function getThemeDisplayName(theme) {
 
 function updateThemeCards() {
     if (elements.themeCards) {
+        const outfit = outfits.find(o=>o.id===currentOutfit) || outfits[0];
         elements.themeCards.forEach(card => {
             const theme = card.dataset.theme;
+            // 只显示当前套装支持的主题
+            card.style.display = outfit.themes.includes(theme) ? '' : 'none';
             if (theme === currentTheme) {
                 card.classList.add('active');
             } else {
                 card.classList.remove('active');
             }
+        });
+    }
+}
+
+function updateOutfitCards() {
+    if (elements.outfitCards) {
+        elements.outfitCards.forEach(card => {
+            const oid = card.dataset.outfit;
+            if (oid === currentOutfit) card.classList.add('active');
+            else card.classList.remove('active');
         });
     }
 }

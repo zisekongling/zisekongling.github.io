@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/settings.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- 套装样式（每套独立完整 CSS 包，通过 body.outfit-xxx 启用） -->
+    <link rel="stylesheet" href="css/outfits/macaron.css">
+    <link rel="stylesheet" href="css/outfits/kawaii.css">
+    <link rel="stylesheet" href="css/outfits/cyberpunk.css">
+    <link rel="stylesheet" href="css/outfits/editorial.css">
+    <link rel="stylesheet" href="css/outfits/vintage.css">
 </head>
 <body>
     <div class="bg-container">
@@ -229,10 +235,52 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="setting-group" id="outfitSettingsGroup">
+                        <div class="setting-group-header">
+                            <h3><i class="fas fa-tshirt"></i> 套装设置</h3>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="setting-group-content">
+                            <div class="setting-section">
+                                <h4><i class="fas fa-wand-magic-sparkles"></i> 选择套装</h4>
+                                <div class="outfit-selector" id="outfitSelector">
+                                    <div class="outfit-card" data-outfit="shouzhang">
+                                        <div class="outfit-color shouzhang"></div>
+                                        <span>纸上时光</span>
+                                    </div>
+                                    <div class="outfit-card" data-outfit="macaron">
+                                        <div class="outfit-color macaron"></div>
+                                        <span>甜梦巴黎</span>
+                                    </div>
+                                    <div class="outfit-card" data-outfit="kawaii">
+                                        <div class="outfit-color kawaii"></div>
+                                        <span>萌力全开</span>
+                                    </div>
+                                    <div class="outfit-card" data-outfit="cyberpunk">
+                                        <div class="outfit-color cyberpunk"></div>
+                                        <span>霓虹都市</span>
+                                    </div>
+                                    <div class="outfit-card" data-outfit="editorial">
+                                        <div class="outfit-color editorial"></div>
+                                        <span>纸墨宣言</span>
+                                    </div>
+                                    <div class="outfit-card" data-outfit="vintage">
+                                        <div class="outfit-color vintage"></div>
+                                        <span>旧日终端</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-section">
+                                <h4><i class="fas fa-info-circle"></i> 套装信息</h4>
+                                <div class="theme-info">
+                                    <p><strong>当前套装：</strong><span id="currentOutfitName">纸上时光</span></p>
+                                    <p><strong>描述：</strong><span id="currentOutfitDesc">手账纸片 · 胶带马克笔，温暖治愈</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- 右列：内容与外观 -->
-                <div class="settings-column" id="settingsColumn2">
                     <div class="setting-group" id="quoteSettingsGroup">
                         <div class="setting-group-header">
                             <h3><i class="fas fa-quote-right"></i> 金句设置</h3>
@@ -479,6 +527,7 @@
             <button type="button" class="drawer-item" id="drawerQuote"><i class="fas fa-quote-right"></i><span>更换金句</span></button>
             <button type="button" class="drawer-item" id="drawerBg"><i class="fas fa-image"></i><span>更换背景</span></button>
             <button type="button" class="drawer-item" id="drawerTheme"><i class="fas fa-palette"></i><span>切换主题</span></button>
+            <button type="button" class="drawer-item" id="drawerOutfit"><i class="fas fa-tshirt"></i><span>切换套装</span></button>
         </div>
         <div class="drawer-tape"></div>
     </div>

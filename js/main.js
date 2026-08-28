@@ -71,6 +71,7 @@ function init() {
     elements.drawerQuote.addEventListener('click', () => { fetchQuote(); closeDrawer(); });
     elements.drawerBg.addEventListener('click', () => { changeRandomBg(true, false); closeDrawer(); });
     elements.drawerTheme.addEventListener('click', () => { toggleTheme(); closeDrawer(); });
+    elements.drawerOutfit.addEventListener('click', () => { toggleOutfit(); closeDrawer(); });
     elements.themeBtn.addEventListener('click', toggleTheme);
     elements.settingsBtn.addEventListener('click', toggleSettings);
     elements.fullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -131,6 +132,22 @@ function init() {
                     elements.followSystemTheme.checked = false;
                     followSystemTheme = false;
                 }
+            });
+        });
+    }
+    
+    // 套装设置事件监听器
+    if (elements.outfitCards) {
+        elements.outfitCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const oid = this.dataset.outfit;
+                applyOutfit(oid);
+                if (elements.followSystemTheme) {
+                    elements.followSystemTheme.checked = false;
+                    followSystemTheme = false;
+                }
+                saveSettings();
+                showToast('已切换套装');
             });
         });
     }
