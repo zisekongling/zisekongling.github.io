@@ -91,20 +91,40 @@ function applyStyleSettings() {
     const opacityValue = opacity / 100;
     const blurValue = blur / 10;
     
+    // 读取当前主题的卡片底色（--card-bg），并保持其对比度；透明度滑块只调节背景图透过量
+    let baseCard = getCSSVar('--card-bg') || '#fdf9ef';
+    // 保证最低 0.78 不透明度，背景图不透过文字
+    const alpha = Math.min(1, 0.78 + (opacity / 100) * 0.2);
+    const rgba = hexToRgba(baseCard, alpha);
+    
     const panels = document.querySelectorAll('header, .time-section, .quote-section, .countdown-panel, .settings-panel');
     panels.forEach(panel => {
-        panel.style.backgroundColor = `rgba(255, 255, 255, ${opacityValue * 0.7})`;
+        panel.style.backgroundColor = rgba;
         panel.style.backdropFilter = `blur(${blurValue}px)`;
     });
     
-    if (currentTheme === 'dark' || currentTheme === 'midnight') {
-        panels.forEach(panel => {
-            panel.style.backgroundColor = `rgba(30, 30, 46, ${opacityValue * 0.7})`;
-        });
-    }
-    
     if (elements.opacityValue) elements.opacityValue.textContent = opacity;
     if (elements.blurValue) elements.blurValue.textContent = blurValue.toFixed(1);
+}
+
+function getCSSVar(name) {
+    try {
+        return getComputedStyle(document.body).getPropertyValue(name).trim() || null;
+    } catch(e) { return null; }
+}
+
+function hexToRgba(hex, alpha) {
+    hex = hex.replace('#', '');
+    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    let r, g, b;
+    if (hex.length >= 6) {
+        r = parseInt(hex.substr(0, 2), 16);
+        g = parseInt(hex.substr(2, 2), 16);
+        b = parseInt(hex.substr(4, 2), 16);
+    } else {
+        return hex;
+    }
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 function resetStyleSettings() {

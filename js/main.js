@@ -64,7 +64,7 @@ function init() {
         showToast(`金句保底机制已${enableQuoteGuarantee?'开启':'关闭'}`); 
         saveSettings(); 
     });
-    elements.aboutBtn.addEventListener('click', () => window.open('https://zise-blog.netlify.app/2025/07/27/time/', '_blank'));
+    elements.aboutBtn.addEventListener('click', () => window.open('https://zise.asia/archives/time', '_blank'));
     elements.drawerToggle.addEventListener('click', openDrawer);
     elements.drawerOverlay.addEventListener('click', closeDrawer);
     elements.drawerClose.addEventListener('click', closeDrawer);

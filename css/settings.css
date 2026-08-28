@@ -266,7 +266,8 @@
 .preset-btn.active {
     background: var(--primary);
     border-color: var(--primary);
-    color: #fff;
+    color: var(--card-bg);
+    font-weight: 700;
 }
 
 .action-buttons {
@@ -522,7 +523,8 @@
 .tag-filter-item.active {
     background: var(--primary);
     border-color: var(--primary);
-    color: #fff;
+    color: var(--card-bg);
+    font-weight: 700;
 }
 
 .style-control {
@@ -747,35 +749,44 @@
     color: var(--primary);
 }
 
-/* 暗色主题适配 */
+/* 暗色主题适配：统一使用 token，保证对比 */
 .dark-theme .setting-group,
 .ocean-theme .setting-group,
 .forest-theme .setting-group,
 .sunset-theme .setting-group,
 .midnight-theme .setting-group,
-.sakura-theme .setting-group {
-    background: rgba(40, 40, 60, 0.6);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.sakura-theme .setting-group,
+.studynight-theme .setting-group {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    box-shadow: var(--shadow);
 }
 
 .dark-theme .setting-group .setting-desc,
-.midnight-theme .setting-group .setting-desc,
 .dark-theme .setting-group .checkbox-item,
-.midnight-theme .setting-group .checkbox-item,
 .dark-theme .setting-group .radio-item,
-.midnight-theme .setting-group .radio-item,
 .dark-theme .setting-group .interval-control label,
-.midnight-theme .setting-group .interval-control label,
 .dark-theme .setting-group .unit,
-.midnight-theme .setting-group .unit,
 .dark-theme .setting-group .preset-btn,
-.midnight-theme .setting-group .preset-btn,
 .dark-theme .setting-group .action-btn,
-.midnight-theme .setting-group .action-btn,
 .dark-theme .setting-group .form-group label,
-.midnight-theme .setting-group .form-group label {
-    color: #ffffff;
+.midnight-theme .setting-group .setting-desc,
+.midnight-theme .setting-group .checkbox-item,
+.midnight-theme .setting-group .radio-item,
+.midnight-theme .setting-group .interval-control label,
+.midnight-theme .setting-group .unit,
+.midnight-theme .setting-group .preset-btn,
+.midnight-theme .setting-group .action-btn,
+.midnight-theme .setting-group .form-group label,
+.studynight-theme .setting-group .setting-desc,
+.studynight-theme .setting-group .checkbox-item,
+.studynight-theme .setting-group .radio-item,
+.studynight-theme .setting-group .interval-control label,
+.studynight-theme .setting-group .unit,
+.studynight-theme .setting-group .preset-btn,
+.studynight-theme .setting-group .action-btn,
+.studynight-theme .setting-group .form-group label {
+    color: var(--text);
 }
 
 .dark-theme .setting-group:hover,
@@ -783,8 +794,9 @@
 .forest-theme .setting-group:hover,
 .sunset-theme .setting-group:hover,
 .midnight-theme .setting-group:hover,
-.sakura-theme .setting-group:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+.sakura-theme .setting-group:hover,
+.studynight-theme .setting-group:hover {
+    box-shadow: var(--shadow-far);
 }
 
 .dark-theme .setting-section,
@@ -792,8 +804,9 @@
 .forest-theme .setting-section,
 .sunset-theme .setting-section,
 .midnight-theme .setting-section,
-.sakura-theme .setting-section {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+.sakura-theme .setting-section,
+.studynight-theme .setting-section {
+    border-bottom-color: var(--card-border);
 }
 
 .dark-theme .bg-input,
@@ -801,10 +814,11 @@
 .forest-theme .bg-input,
 .sunset-theme .bg-input,
 .midnight-theme .bg-input,
-.sakura-theme .bg-input {
-    background: rgba(30, 30, 50, 0.5);
+.sakura-theme .bg-input,
+.studynight-theme .bg-input {
+    background: var(--time-block-bg);
     color: var(--text);
-    border-color: #444;
+    border-color: var(--card-border);
 }
 
 .dark-theme .interval-control input,
@@ -812,16 +826,18 @@
 .forest-theme .interval-control input,
 .sunset-theme .interval-control input,
 .midnight-theme .interval-control input,
-.sakura-theme .interval-control input {
-    background: rgba(30, 30, 50, 0.5);
+.sakura-theme .interval-control input,
+.studynight-theme .interval-control input {
+    background: var(--time-block-bg);
     color: var(--text);
-    border-color: var(--secondary);
+    border-color: var(--card-border);
 }
 
-.dark-theme .form-control {
-    background: rgba(30, 30, 50, 0.5);
+.dark-theme .form-control,
+.studynight-theme .form-control {
+    background: var(--time-block-bg);
     color: var(--text);
-    border-color: #444;
+    border-color: var(--card-border);
 }
 
 /* 动效降级 */
