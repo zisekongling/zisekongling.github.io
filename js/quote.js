@@ -92,11 +92,14 @@ function resetQuoteTimer() {
     if(quoteAnimationFrame) cancelAnimationFrame(quoteAnimationFrame);
     quoteStartTime = Date.now(); 
     quoteDuration = quoteInterval * 60 * 1000;
+    let cs = getComputedStyle(document.documentElement);
+    let colorNormal = (cs.getPropertyValue('--progress-normal')||'#58c9a9').trim();
+    let colorWarn = (cs.getPropertyValue('--progress-warning')||'#ff8a7a').trim();
     let update = () => {
         let elapsed = Date.now() - quoteStartTime, remaining = quoteDuration - elapsed;
         let progress = Math.min(100, (remaining/quoteDuration)*100);
         elements.quoteProgressBar.style.transform = `scaleX(${progress/100})`;
-        elements.quoteProgressBar.style.backgroundColor = remaining < 15000 ? '#e74c3c' : '#2ecc71';
+        elements.quoteProgressBar.style.backgroundColor = remaining < 15000 ? colorWarn : colorNormal;
         if(elapsed >= quoteDuration) fetchQuote();
         else quoteAnimationFrame = requestAnimationFrame(update);
     };

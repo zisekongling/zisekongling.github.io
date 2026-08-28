@@ -7,7 +7,7 @@ function toggleTheme() {
 }
 
 function applyTheme(theme) {
-    document.body.classList.remove('dark-theme','ocean-theme','forest-theme','sunset-theme','midnight-theme','sakura-theme','high-contrast-theme','minimal-theme','nature-theme');
+    document.body.classList.remove('dark-theme','ocean-theme','forest-theme','sunset-theme','midnight-theme','sakura-theme','high-contrast-theme','minimal-theme','nature-theme','dawn-theme','paper-theme','studynight-theme','nebula-theme');
     
     if(theme !== 'light') document.body.classList.add(`${theme}-theme`);
     
@@ -40,7 +40,11 @@ function getThemeDisplayName(theme) {
         'sakura': '樱花',
         'high-contrast': '高对比度',
         'minimal': '极简',
-        'nature': '自然'
+        'nature': '自然',
+        'dawn': '奶油',
+        'paper': '糖果纸',
+        'studynight': '星夜自习',
+        'nebula': '云霓'
     };
     return displayNames[theme] || theme;
 }

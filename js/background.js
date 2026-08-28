@@ -152,12 +152,15 @@ function resetBgTimer() {
     nextBgUrl = null;
     isPreloading = false;
     let preloadTriggered = false;
+    let cs = getComputedStyle(document.documentElement);
+    let colorNormal = (cs.getPropertyValue('--progress-normal')||'#58c9a9').trim();
+    let colorWarn = (cs.getPropertyValue('--progress-warning')||'#ff8a7a').trim();
     
     let update = () => {
         let elapsed = Date.now() - bgStartTime, remaining = bgDuration - elapsed;
         let progress = Math.min(100, (remaining/bgDuration)*100);
         elements.bgProgressBar.style.transform = `scaleX(${progress/100})`;
-        elements.bgProgressBar.style.backgroundColor = remaining < 15000 ? '#e74c3c' : '#2ecc71';
+        elements.bgProgressBar.style.backgroundColor = remaining < 15000 ? colorWarn : colorNormal;
         
         if (remaining < 15000 && !isPreloading && !preloadTriggered) {
             preloadNextBackground();

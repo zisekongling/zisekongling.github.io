@@ -24,7 +24,13 @@ const elements = {
     bgProgressBar: document.getElementById('bgProgressBar'),
     toast: document.getElementById('toast'),
     toastMessage: document.getElementById('toastMessage'),
-    refreshBtn: document.getElementById('refreshBtn'),
+    drawerToggle: document.getElementById('drawerToggle'),
+    drawerOverlay: document.getElementById('drawerOverlay'),
+    quickDrawer: document.getElementById('quickDrawer'),
+    drawerClose: document.getElementById('drawerClose'),
+    drawerQuote: document.getElementById('drawerQuote'),
+    drawerBg: document.getElementById('drawerBg'),
+    drawerTheme: document.getElementById('drawerTheme'),
     extStatus: document.getElementById('extStatus'),
     extStatusText: document.getElementById('extStatusText'),
     downloadExtBtn: document.getElementById('downloadExtBtn'),
@@ -90,7 +96,7 @@ const elements = {
 
 // 全局状态变量
 let currentTheme = 'light';
-const themes = ['light', 'dark', 'ocean', 'forest', 'sunset', 'midnight', 'sakura', 'high-contrast', 'minimal', 'nature'];
+const themes = ['light', 'dark', 'ocean', 'forest', 'sunset', 'midnight', 'sakura', 'high-contrast', 'minimal', 'nature', 'dawn', 'paper', 'studynight', 'nebula'];
 let currentThemeIndex = 0;
 let followSystemTheme = false;
 
@@ -105,7 +111,11 @@ const themeDescriptions = {
     'sakura': '樱花主题，粉色系，浪漫可爱',
     'high-contrast': '高对比度主题，适合视力障碍用户，文本清晰易读',
     'minimal': '极简主题，简洁干净，减少视觉干扰',
-    'nature': '自然主题，以大地色调为主，贴近自然'
+    'nature': '自然主题，以大地色调为主，贴近自然',
+    'dawn': '奶油晨曦主题，薄荷×暖金，清晨元气满满',
+    'paper': '糖果纸主题，奶白纸感×淡蓝柔粉，温柔清爽',
+    'studynight': '星夜自习主题，深靛蓝×暖灯橙，晚自习温馨专注',
+    'nebula': '云霓主题，淡紫淡青渐变，青春梦幻'
 };
 
 let quoteTypes = ['a', 'c', 'f', 'h', 'k'];

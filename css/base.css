@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    font-family: var(--font-body);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@ body {
     padding: 10px;
     background-size: cover;
     background-position: center;
-    background-color: var(--primary);
+    background-color: var(--bg);
     font-size: 16px;
     line-height: 1.5;
     font-weight: 400;

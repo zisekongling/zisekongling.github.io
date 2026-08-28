@@ -150,3 +150,46 @@
     .countdown-item { min-width: 90px !important; }
     .holiday-image-container { width: 60px; height: 54px; }
 }
+
+/* ============ 校园手账 · 窄屏适配 ============ */
+
+@media (max-width: 768px) {
+    header, .time-section, .quote-section, .countdown-panel, .settings-panel {
+        border-radius: var(--radius-sm);
+    }
+    .card-glass::before, .time-section::before {
+        width: 60px;
+        height: 18px;
+        top: -10px;
+    }
+}
+
+/* 时间数字块窄屏收缩，防溢出 */
+@media (max-width: 600px) {
+    .time-display > span:not(.colon):not(.milliseconds) {
+        padding: 2px 8px;
+        min-width: 1ch;
+    }
+    .time-display { gap: 4px; }
+    .logo h1 { font-size: 1.4rem; }
+}
+
+@media (max-width: 480px) {
+    .date-display { padding: 4px 12px; border-radius: 4px; }
+    .time-display > span:not(.colon):not(.milliseconds) {
+        padding: 1px 6px;
+        border-width: 1.5px;
+    }
+    .quote-content { padding: 0 10px; }
+    .btn { padding: 7px 14px; }
+    .countdown-item { padding: 5px 10px; min-width: 110px; }
+}
+
+@media (max-width: 360px) {
+    .time-display > span:not(.colon):not(.milliseconds) {
+        padding: 1px 4px;
+    }
+    .time-display { gap: 3px; }
+    .milliseconds { font-size: 1.1rem; margin-bottom: 5px; }
+    .quote-type { max-width: 90%; }
+}

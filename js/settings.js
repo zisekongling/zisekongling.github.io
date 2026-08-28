@@ -7,12 +7,13 @@ function toggleSettings() {
         document.querySelector('.main-content').style.display = 'none';
         elements.countdownSidebar.style.display = 'none';
         tempSettings = getCurrentFormSettings();
-        elements.refreshBtn.classList.add('hidden');
+        elements.drawerToggle.classList.add('hidden');
+        closeDrawer();
     } else {
         document.querySelector('header').style.display = 'flex';
         document.querySelector('.main-content').style.display = 'flex';
         elements.countdownSidebar.style.display = 'flex';
-        elements.refreshBtn.classList.remove('hidden');
+        elements.drawerToggle.classList.remove('hidden');
     }
 }
 
@@ -307,32 +308,4 @@ function importSettings(file) {
         showToast('读取文件失败！');
     };
     reader.readAsText(file);
-}
-
-function redistributeCards() {
-    const column1 = document.getElementById('settingsColumn1');
-    const column2 = document.getElementById('settingsColumn2');
-    
-    if (!column1 || !column2) return;
-    
-    const allCards = Array.from(document.querySelectorAll('.setting-group'));
-    const visibleCards = allCards.filter(card => !card.classList.contains('collapsed'));
-    const totalVisible = visibleCards.length;
-    const column1Count = Math.ceil(totalVisible / 2);
-    
-    column1.innerHTML = '';
-    column2.innerHTML = '';
-    
-    visibleCards.forEach((card, index) => {
-        if (index < column1Count) {
-            column1.appendChild(card);
-        } else {
-            column2.appendChild(card);
-        }
-    });
-    
-    const collapsedCards = allCards.filter(card => card.classList.contains('collapsed'));
-    collapsedCards.forEach(card => {
-        column2.appendChild(card);
-    });
 }

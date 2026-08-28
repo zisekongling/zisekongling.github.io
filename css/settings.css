@@ -1,15 +1,36 @@
 .setting-group {
-    background: rgba(245, 245, 245, 0.4);
+    background:
+        var(--paper-noise),
+        var(--card-bg);
     padding: 18px;
-    border-radius: 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow);
+    position: relative;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    min-width: 0;
+}
+
+/* 顶部胶带贴边 */
+.setting-group::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    width: 64px;
+    height: 22px;
+    background: var(--tape);
+    border: 1px solid rgba(120, 100, 60, 0.12);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(70, 58, 42, 0.15);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    z-index: 2;
 }
 
 .setting-group:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-far);
 }
 
 .setting-group-header {
@@ -17,31 +38,57 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    user-select: none;
 }
 
 .setting-group h3 {
     font-size: 1.3rem;
-    color: var(--primary);
+    color: var(--text);
+    font-family: var(--font-hand);
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 4px;
+}
+
+/* 标题下马克笔高亮 */
+.setting-group h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 6px;
+    background: var(--marker-soft);
+    border-radius: 3px;
+    z-index: -1;
+}
+
+.setting-group h3 i {
+    color: var(--accent);
 }
 
 .toggle-icon {
-    transition: transform 0.3s ease;
+    color: var(--primary);
+    transition: transform 0.35s ease;
 }
 
 .setting-group.collapsed .toggle-icon {
     transform: rotate(-90deg);
 }
 
+/* 折叠：内容高度塌陷 + 卡片整体收缩，锚定原栏 */
 .setting-group-content {
     max-height: 1000px;
     overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+    transition: max-height 0.35s ease, opacity 0.3s ease;
     opacity: 1;
+}
+
+.setting-group.collapsed {
+    padding-bottom: 10px;
 }
 
 .setting-group.collapsed .setting-group-content {
@@ -53,7 +100,7 @@
 .setting-section {
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px dashed var(--card-border);
 }
 
 .setting-section:last-child {
@@ -70,7 +117,10 @@
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.setting-section h4 i {
+    color: var(--accent);
 }
 
 .setting-desc {
@@ -179,10 +229,10 @@
 .bg-input {
     flex: 1;
     padding: 10px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-sm);
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--time-block-bg);
 }
 
 .preset-buttons {
@@ -196,26 +246,27 @@
     flex: 1;
     min-width: 110px;
     padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(110, 142, 251, 0.15);
-    color: var(--primary);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--card-bg);
+    color: var(--text);
     font-weight: 500;
     cursor: pointer;
     text-align: center;
     transition: all 0.3s;
     font-size: 0.95rem;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .preset-btn:hover {
-    background: rgba(110, 142, 251, 0.25);
+    background: var(--marker-soft);
     transform: translateY(-2px);
+    border-color: var(--primary);
 }
 
 .preset-btn.active {
     background: var(--primary);
-    color: white;
+    border-color: var(--primary);
+    color: #fff;
 }
 
 .action-buttons {
@@ -227,31 +278,32 @@
 .action-btn {
     flex: 1;
     padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(110, 142, 251, 0.15);
-    color: var(--primary);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--card-bg);
+    color: var(--text);
     font-weight: 500;
     cursor: pointer;
     text-align: center;
     transition: all 0.3s;
     font-size: 1rem;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .action-btn:hover {
-    background: rgba(110, 142, 251, 0.25);
+    background: var(--marker-soft);
     transform: translateY(-2px);
+    border-color: var(--primary);
 }
 
 .reset-btn {
-    background: rgba(255, 107, 107, 0.1);
+    background: var(--card-bg);
     color: var(--gaokao-color);
-    border: 1px solid var(--gaokao-color);
+    border: 2px solid var(--gaokao-color);
 }
 
 .reset-btn:hover {
-    background: rgba(255, 107, 107, 0.2);
+    background: rgba(217, 83, 79, 0.12);
+    border-color: var(--gaokao-color);
 }
 
 .type-controls {
@@ -283,19 +335,23 @@
 }
 
 .btn-export {
-    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    background: var(--card-bg);
+    border-color: #6a8c5a;
+    color: #4a6a3a;
 }
 
 .btn-export:hover {
-    background: linear-gradient(45deg, #229954, #27ae60);
+    background: rgba(106, 140, 90, 0.12);
 }
 
 .btn-import {
-    background: linear-gradient(45deg, #3498db, #5dade2);
+    background: var(--card-bg);
+    border-color: #5a7ac9;
+    color: #4a5a9a;
 }
 
 .btn-import:hover {
-    background: linear-gradient(45deg, #2980b9, #3498db);
+    background: rgba(90, 122, 201, 0.12);
 }
 
 .countdowns-form {
@@ -316,9 +372,9 @@
 
 .form-control {
     padding: 10px 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    background: var(--time-block-bg);
 }
 
 .countdowns-list {
@@ -396,11 +452,11 @@
 }
 
 .countdown-toggle-btn {
-    color: #27ae60;
+    color: var(--progress-normal);
 }
 
 .countdown-toggle-btn.hidden {
-    color: #e74c3c;
+    color: var(--progress-warning);
 }
 
 .countdown-edit-btn:hover, .countdown-delete-btn:hover, .countdown-toggle-btn:hover {
@@ -453,9 +509,10 @@
 }
 
 .tag-filter-item {
-    background: rgba(110, 142, 251, 0.15);
+    background: var(--marker-soft);
     padding: 4px 12px;
-    border-radius: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--card-border);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -464,7 +521,8 @@
 
 .tag-filter-item.active {
     background: var(--primary);
-    color: white;
+    border-color: var(--primary);
+    color: #fff;
 }
 
 .style-control {
@@ -482,8 +540,10 @@
 .style-slider {
     width: 100%;
     height: 8px;
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.1);
+    border-radius: 999px;
+    background: var(--bg-2);
+    border: 1px solid var(--card-border);
+    box-shadow: inset 0 1px 2px rgba(70, 58, 42, 0.12);
     outline: none;
     -webkit-appearance: none;
     appearance: none;
@@ -496,48 +556,50 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    background: var(--primary);
+    border: 2px solid var(--card-bg);
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     transition: all 0.3s ease;
 }
 
 .style-slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-far);
 }
 
 .style-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    background: var(--primary);
+    border: 2px solid var(--card-bg);
     cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     transition: all 0.3s ease;
 }
 
 .style-slider::-moz-range-thumb:hover {
     transform: scale(1.1);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-far);
 }
 
 /* 主题设置样式 */
 .theme-preview {
     width: 100%;
     height: 150px;
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     box-shadow: var(--shadow);
     margin: 10px 0;
-    background: var(--bg);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     transition: all 0.3s ease;
 }
 
 .preview-header {
     height: 30px;
-    background: var(--primary);
+    background: var(--marker-soft);
     display: flex;
     align-items: center;
     padding: 0 10px;
@@ -557,12 +619,13 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-num);
+    color: var(--text);
 }
 
 .preview-quote {
     font-size: 1rem;
-    font-style: italic;
+    font-family: var(--font-hand);
     text-align: center;
 }
 
@@ -578,69 +641,87 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--card-bg);
     border: 2px solid transparent;
 }
 
 .theme-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-far);
 }
 
 .theme-card.active {
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(110, 142, 251, 0.3);
+    background: var(--marker-soft);
+    box-shadow: var(--shadow);
 }
 
 .theme-color {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 8px;
     margin-bottom: 8px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-near);
 }
 
 .theme-color.light {
-    background: linear-gradient(45deg, #6e8efb, #a777e3);
+    background: linear-gradient(135deg, #fdf9ef 0%, #fdf9ef 55%, #3a5a8c 55%);
 }
 
 .theme-color.dark {
-    background: linear-gradient(45deg, #1a1a2e, #8aa2ff);
+    background: linear-gradient(135deg, #2b2823 0%, #2b2823 55%, #b7c4e0 55%);
 }
 
 .theme-color.ocean {
-    background: linear-gradient(45deg, #3498db, #1abc9c);
+    background: linear-gradient(135deg, #f4f9f8 0%, #f4f9f8 55%, #2f5f7a 55%);
 }
 
 .theme-color.forest {
-    background: linear-gradient(45deg, #27ae60, #f39c12);
+    background: linear-gradient(135deg, #f5f8ef 0%, #f5f8ef 55%, #4d7047 55%);
 }
 
 .theme-color.sunset {
-    background: linear-gradient(45deg, #e74c3c, #e67e22);
+    background: linear-gradient(135deg, #fef6e9 0%, #fef6e9 55%, #b05f48 55%);
 }
 
 .theme-color.midnight {
-    background: linear-gradient(45deg, #2c3e50, #8e44ad);
+    background: linear-gradient(135deg, #2b2538 0%, #2b2538 55%, #b49de0 55%);
 }
 
 .theme-color.sakura {
-    background: linear-gradient(45deg, #e84393, #fd79a8);
+    background: linear-gradient(135deg, #fef6f8 0%, #fef6f8 55%, #b06a8a 55%);
 }
 
 .theme-color.high-contrast {
-    background: linear-gradient(45deg, #000000, #ffffff);
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 55%, #000000 55%);
 }
 
 .theme-color.minimal {
-    background: linear-gradient(45deg, #f8f9fa, #6c757d);
+    background: linear-gradient(135deg, #fdfdfb 0%, #fdfdfb 55%, #4a5058 55%);
 }
 
 .theme-color.nature {
-    background: linear-gradient(45deg, #556b2f, #98fb98);
+    background: linear-gradient(135deg, #f6f6ec 0%, #f6f6ec 55%, #5a7a48 55%);
+}
+
+.theme-color.dawn {
+    background: linear-gradient(135deg, #fef9ec 0%, #fef9ec 55%, #4a8a7a 55%);
+}
+
+.theme-color.paper {
+    background: linear-gradient(135deg, #f6f8fd 0%, #f6f8fd 55%, #5a7ac9 55%);
+}
+
+.theme-color.studynight {
+    background: linear-gradient(135deg, #2b3346 0%, #2b3346 55%, #d9b06a 55%);
+}
+
+.theme-color.nebula {
+    background: linear-gradient(135deg, #f6f4fb 0%, #f6f4fb 55%, #6a7ab8 55%);
 }
 
 .theme-card span {
@@ -741,4 +822,14 @@
     background: rgba(30, 30, 50, 0.5);
     color: var(--text);
     border-color: #444;
+}
+
+/* 动效降级 */
+@media (prefers-reduced-motion: reduce) {
+    .setting-group, .setting-group-content, .toggle-icon,
+    .preset-btn, .action-btn, .style-slider, .theme-card {
+        transition: none !important;
+    }
+    .setting-group-content { max-height: none; }
+    .setting-group.collapsed .setting-group-content { max-height: 0; }
 }

@@ -367,6 +367,22 @@
                                         <div class="theme-color nature"></div>
                                         <span>自然</span>
                                     </div>
+                                    <div class="theme-card" data-theme="dawn">
+                                        <div class="theme-color dawn"></div>
+                                        <span>奶油</span>
+                                    </div>
+                                    <div class="theme-card" data-theme="paper">
+                                        <div class="theme-color paper"></div>
+                                        <span>糖果纸</span>
+                                    </div>
+                                    <div class="theme-card" data-theme="studynight">
+                                        <div class="theme-color studynight"></div>
+                                        <span>星夜自习</span>
+                                    </div>
+                                    <div class="theme-card" data-theme="nebula">
+                                        <div class="theme-color nebula"></div>
+                                        <span>云霓</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="setting-section">
@@ -451,7 +467,21 @@
         <div class="progress-bar" id="bgProgressBar"></div>
     </div>
     
-    <button type="button" class="floating-btn" id="refreshBtn" aria-label="刷新"><i class="fas fa-sync-alt"></i></button>
+    <button type="button" class="floating-btn" id="drawerToggle" aria-label="快捷操作" aria-expanded="false"><i class="fas fa-wand-magic-sparkles"></i></button>
+    
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="quick-drawer" id="quickDrawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">快捷操作</span>
+            <button type="button" class="drawer-close" id="drawerClose" aria-label="关闭"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="drawer-body">
+            <button type="button" class="drawer-item" id="drawerQuote"><i class="fas fa-quote-right"></i><span>更换金句</span></button>
+            <button type="button" class="drawer-item" id="drawerBg"><i class="fas fa-image"></i><span>更换背景</span></button>
+            <button type="button" class="drawer-item" id="drawerTheme"><i class="fas fa-palette"></i><span>切换主题</span></button>
+        </div>
+        <div class="drawer-tape"></div>
+    </div>
     
     <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMessage">操作成功！</span></div>
 
@@ -463,6 +493,7 @@
     <script src="js/background.js"></script>
     <script src="js/countdown.js"></script>
     <script src="js/theme.js"></script>
+    <script src="js/drawer.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/main.js"></script>
 </body>

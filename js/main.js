@@ -9,15 +9,11 @@ function init() {
     initExtensionQuotes(); 
     initCountdowns();
     
-    // 重新分配卡片位置，维持两列数量基本一致
-    redistributeCards();
-    
     document.querySelectorAll('.setting-group').forEach(group => {
         let header = group.querySelector('.setting-group-header');
         header.addEventListener('click', () => {
             group.classList.toggle('collapsed');
             saveSettings();
-            redistributeCards();
         });
     });
     
@@ -69,7 +65,12 @@ function init() {
         saveSettings(); 
     });
     elements.aboutBtn.addEventListener('click', () => window.open('https://zise-blog.netlify.app/2025/07/27/time/', '_blank'));
-    elements.refreshBtn.addEventListener('click', fetchQuote);
+    elements.drawerToggle.addEventListener('click', openDrawer);
+    elements.drawerOverlay.addEventListener('click', closeDrawer);
+    elements.drawerClose.addEventListener('click', closeDrawer);
+    elements.drawerQuote.addEventListener('click', () => { fetchQuote(); closeDrawer(); });
+    elements.drawerBg.addEventListener('click', () => { changeRandomBg(true, false); closeDrawer(); });
+    elements.drawerTheme.addEventListener('click', () => { toggleTheme(); closeDrawer(); });
     elements.themeBtn.addEventListener('click', toggleTheme);
     elements.settingsBtn.addEventListener('click', toggleSettings);
     elements.fullscreenBtn.addEventListener('click', toggleFullscreen);
